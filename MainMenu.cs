@@ -16,5 +16,12 @@ namespace Gridemonium
         {
             InitializeComponent();
         }
+
+        private void NormalMode_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            GameRoom game = new GameRoom();
+            game.Show();
+        }
     }
 }
