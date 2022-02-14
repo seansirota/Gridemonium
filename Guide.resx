@@ -1,0 +1,423 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ExplainText1.Text" xml:space="preserve">
+    <value>Gridemonium is a puzzle game about clearing a
+grid of bubbles by blasting them one at a time from
+the bottom. You can only blast bubbles from the
+bottom a limited amount of times since your Ammo
+has a limited supply. All bubbles are different and
+have unique effects that can be strategically used to
+destroy more bubbles. In order to stop bubbles
+from spawning in each column, you need to
+attack the spawners at the top of the grid to
+reduce the chance something can spawn. You
+can do this with certain power-ups and effects
+from bubbles. Setting all spawners to 0% wins
+you the game. Running out of Ammo before
+you do that means you lose the game.</value>
+  </data>
+  <data name="BubbleExplain1.Text" xml:space="preserve">
+    <value>The gray bubbles are the most common and
+don't anything when blown up. The vertical
+bubble blasts all other bubble north and south
+of it and also reduces the column's spawn rate
+by 10%. The horizontal bubble blasts all other
+bubbles west and east of it.</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwa
+        AAACkElEQVRYR82YzY4SQRDH+QyQwFGzV73AAS56gQASCBfhCtEECMZXMB59FvXi3a+X0N0XWfeiXlx3
+        Q1u/SjcZ3cadYWZ2qeSX7EJ31T/T1VU1ZCLakfBceCscC2fCb8s3+xnfsYa1idtD4YNwKRhHoVAwpVJJ
+        yefz288tF8JH4ZEQ2+4J74SNYMrlsmk0GmY0Gpn5fG7W6/VfzGYz/Y41rGWP5bNwX9jLpsIPwVQqFdNu
+        t81qtboSfBes7fV6plarOTHfhcdCJHsp6DG0Wi2zWCy8wcKwXC7VB76szxdCKEMEZ77p9/te5/swGAzU
+        J76Fa8VwHJdsmE6nXodxmEwmTgxPZucxkZiaE6j3OUoCfBNDIGe8Cczt0PP0OUiSZrPpxHwicNAeCBtu
+        R5zEDAsJHLhNfQQ4o/CYTqfj3ZgGXG1iChRKNUrxBQUoSp2IC7Fs0aMC30UIfUGroW9DmtTrdfdUniGE
+        JqWl2bc4TYbDoRPyGiEn/OPrHWlDb7JCviDkjM7pW3gTEFs0nCLknKTxLboJbML+Oight3o0uVxuezQH
+        k6wHc30PoaCtEXLbJZ43gDsIwbTp0Yh8m9Kg2+26p/EeAc5oxdqaadG+jUlCjGq16oT0EBA0hhQdWnyb
+        kyQwTG9HgKAxtjG+pToqjsdjk81mEfFTYDz12kTQ4ZlB1+coDgzkxWLRTfJPCfg/Y9TXaTvJJ8OTkFdU
+        J+IVgcIYYvQFi5yJk8DuBcseB0JCi3DGe4fmDLeJqx2lzrCWKxq4HeTEE2EvI5n0NgEFiGpIaaZP/Buc
+        z/iONfxC4PYJ3I6diRnFqDM4Y9DdBqBrX/OzBMXqSp1Iwpi26QtvhK8CP86cW/ibLkoDY41O5uEsk/kD
+        RpSjRTd9w44AAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="pictureBox2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wAAADsABataJCQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAO4SURBVFhHxZg7
+        T1RBFMchPBMCgWIXW/0I2qoNUKhQa6eYQEKAABFLAwlfAKiBXV6GR6WrX4HCBz0FrwpQCmApxCUcz29y
+        ZzO7O4t3d2/0JL+43jlz5p+5Z86cS1WJdkd5rSwq35RT5XfAz+AZY/jgG7k9UD4q14pY6uvrpbm52cBv
+        d0zJKCnlsVKx3VXeKzeKtLS0SFdXl4yNjcnMzIwsLy/nMD09bcY6OzuNOOYEfFbuKWXZM+VCkdbWVunt
+        7ZVkMlmweDHw7e/vl3g8bsRUV1ef679PlJLsrXKtk6Wnp0fm5ua8i4VhYWHBxCAWMZU3LBDGECF1dXU3
+        AwMD3uDlMDw8TB6ZV6z8VQyv45oJk5OT3oCVMDExYcWwM0VfE4l5wRai3hcoCgYHB81rCnLGm8CcDvM+
+        fQGipLu7256mTyzs2n3lhtNRLDFXVlZkZ2dHLi8v5eTkRDY2Ngp8eMYYPvgyJ98HSGB7mpRHCLBG4TFH
+        1DeRgHt7e7K+vi4NDQ2mXmxvbxf48YwxfPBlTjExHG3WVCiUxijFGYqVr064Impra6WmpkZSqZRsbW0V
+        +PKMMXzwvU0MawVFjwocRwj3gqmY+c4E2N/fl83NzayIxcVFOTg48AbnGWNra2tZfxvD59/R0WF35RVC
+        uKRMaXadmLi7u1sg4vDwUFZXV3N8XezC+WJ84kdHR62QBEK+85/Z2dmcYGxpqSIsYcWQT4GQLwg51Soq
+        S0tL2SBnZ2c5IhjLZDKSTqdLgjlubtnYVgxxGVMNPxByRaJaEUdHRzI1NWWVSlNTk7S1tVUEMWw8YrOG
+        FRMk7C/l3ws5Pj72CvnrqyE/yn01+Xly26vxJms5J8bC/HKS1RxfjlJ+MCuGHQsrJqwIGBkZsULM8TUF
+        jfbOdQIbNF+ML6j1Z8wVgWhi+PydgvYSIf+lxCcSCZuofAHEEIKZS4+LKH8CuGKiuvT6+vrsbnxAgDWu
+        YmlvbzdXtG8iAaNqA+bn5yUWi1khDxHgGk2KaVp8k6OE5ou1lGwL4Bpt2zlt3NDQkDdAFIyPj9tWMa3r
+        0Z567alimmcaXV+gSqAhb2xstJ38Cxa8zWj1Tbcd5c6wE5rEVsQ7FgpjiDEfWORMsQQOA4npfGAhJLQI
+        a3x30PKbRpejXeonJ0fUOR3kxHOlLCOZzGkCChAVmOuAemEvSuA3zyjbVMygWFk4HUUTsxSjzhCMRje7
+        AGWfBYFK6o4p+FKsCupEFEa3zb2QVL4q/HHmKoDf3KJcYPiYzjycVVX9AeQthJjjSYYXAAAAAElFTkSu
+        QmCC
+</value>
+  </data>
+  <data name="pictureBox3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwa
+        AAAD4klEQVRYR82YuU9bQRCHQdwFiMYmbfInJG2SBiiSQJ10CZFAQoAAhZQRSNRIQM1ljoijco5/gSIH
+        PQVXBXKQOCJQiC02843eWmt7/WwDSRjpE8/Pszs/75udnUdZiXZHeC3EhG/CofA74Edwj+/wwffG7YHw
+        QUgJxlJdXW3q6+sVrt3vhKTwUXgsXNvuCu+FS8E0NDSY1tZWMzg4aCYmJszCwkIG4+Pj+l1LS4uKY0zA
+        Z+GecCV7JpwKprGx0XR0dJi5ubmc4IuLi0r2fXy7urpMNBpVMeXl5Sfy94lQkr0VUjLYtLe3m6mpqZxA
+        gID9/X1zcHDgFQMzMzM6B3Mxp/CGAMUYIkxVVdVld3e3d3Ig8NHRkRkdHVWOj4/zioG+vj7ySB+xUFAM
+        jyPFgJGREe+EQMCdnR2zsrJic0CvuRcmZnh42IphZfI+JhLzlCVEvW8icEVUVlamhXBdjJienh59TEHO
+        eBOY3aHP0zcBEGBra8usra1p4IqKClNXV6fYz/js7u6Gimlra7M/4BOBXbsvXLI7whJze3s7Q8T8/Lxu
+        abArZMXgm08MCWx3k/AIAdYoPLpFfQOZMHslEJFKpdJCkslkjpiwlWFrE1OgUKpRipNM5qsTsLm5aVZX
+        V9NBuLe3t2fOzs7SQrjmHt/hgy9jGOvOZSFWUPSowFGEcC5oxfQNgPPzc1NTU5Mhgl+aLYR7rhjGMNad
+        y6W5udmuyiuEcEhpafY5QyKRMGNjYyYej2csd7YQ7tlHgi9jGOvO5TIwMGCFzCLkOx8mJye9zsCz39jY
+        MOvr6xnP3CcE8MGXMYy197PhbAqEfEHIoVRRTT6fcxj5hBQLMckl0ZBAyAUT+RwLcV0hECTsr1sl5NY8
+        mluTrLp92Uo+Z/hb27e/v98K0e2rBY32zucM/6CgvUTIfynxs7OzNlF5A4ggBNNDj4PIN4hfag89EptA
+        sVgs49Djenl5OS12aWkp9NDr7Oy0qxFHgDWOYtPU1KRHtG8gE9o2wBVjhWSLCGsDpqenTSQSsUIeIsA1
+        mhRtWnyDwV0ZGzS7MSq0EkDzRSwh3QK4Rtt2QhvX29vrnQAIcJ1WcWhoyLaKP2Uc7anXngraPNPo+iYC
+        V4z4K8WIoCGvra21nfwLIdRo9bXbLrQypbxOsBKyna2IdwQqxhCjL1jkTFgCF3rBIjGdFyyEFC3CGu8d
+        tPza6LK1S33lZIs6u4OceC5cyUgm3U1AAaICcxxwTrgHJdfco2xTMYNiZWF35E3MUow6w2Q0uukA1BMC
+        gruDAvClWOXUiZswum3OhTnhq8A/Zy4CuOYU5QDDRzvz4qys7A/BVoPtnvjiWQAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="BubbleExplain2.Text" xml:space="preserve">
+    <value>The white bubbles with red crosses cannot be
+destroyed by blasting from underneath. They
+can only be removed by effects of power-ups
+and other bubbles. The white bubbles with
+green plusses contain a random power-up
+which can be used instead of an Ammo.</value>
+  </data>
+  <data name="pictureBox4.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwa
+        AAADN0lEQVRYR82Yy05TURSGuQUoMXHSNjLsbQ46RJ0jD6AzCBCSAnMYm+grwAhLIDqBXrwk+gpeXsBZ
+        CyNlIjbFFuh2fdu96xF7Ts+lEf/kT0vP3mv97LNu5wwExC3honBX+FF4ImwZfjW/cY01rO077ghfCi+E
+        ynJiYkLF43HNWCzW+d3wXPhKeF8YGSnhc2FbqJLJpFpfX1eVSkUdHR2pq6jVavra2tqaSiQSTlFvhGlh
+        KMwNDg6eyqeanJxUW1tbqtVqGZe9wdpCoaAymYwWI7a+yecshn3jSS5XvDE8fCGb1ebmpqrX68Z8cJyd
+        nWkb2MLm01zu0LjxBiI+z8yog6kp9WJnx5iLjsP9fW0T237EzKHabqguLqrL01NjKjwu5URrKyvaZnl6
+        Wt0cGSHoXW9TipjgCFFvN0YV4xSBrYPdXX2bhMRM1wAmO/T97GYgjBg3GxsbGzabXuPYidvCNtnhDMwo
+        Yrz2EsA2m4T3EGBB4VHb29tm6W+EEeNnD6mNTyGFUoNSfE6xcqsTQcT4XYsvU/SowEmE0Bd0xfSCHwdB
+        Ty+fz9tTWUAITUqX5l7wchRUBCiVSlbIM4R84o/j42Nz2RvdHIYRAarVqhXyHiEn4+Pjqt1um8u98Yfj
+        hQVVW1oKLALgc2xsDCFfENIkUINCizECtIj5+UAiLEzA/ogmZHm5r0Ku9daMjo52bs1/E6w6fcvlsrns
+        Di+HYcQUi0UrRKevLmiMd17w4yioGEdBm0fItZT4ZrNpA5UngARCgG56NKKrCHPkfvbsyPSHT2EFARa0
+        YpXNZnWLtggjwsJrb6PRUKlUygq5iwAnGFL00AKiiLBws8HwhS9hZwRwIs34xhh3sLcXWYTFVTHvJFOG
+        hoYYFb+LT56buuLBPxqeOY1Hv1y6gFGfDYjhZPqFt9Ly7T/4OJslOXoDMfYBi5hxBnBQEJjEBLdDbLZ9
+        i3Bg1oz8Kp1O69QO+shJitrsMDHxEMNhQDDpbIIUoNXVVT1Z0SecjZLv/EbZpmLyhsDuE5IdroEZBNQZ
+        jDHodhzQte1rCTPgOMlaitVfdaIfYNqmLxSEH4S8nGka8p0uSgNjjZ7M/WFg4CfypT4AQrec9QAAAABJ
+        RU5ErkJggg==
+</value>
+  </data>
+  <data name="pictureBox5.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwa
+        AAADKklEQVRYR82YO08bQRRGDZEwrxJbsahs+ANJ2iQ9oUmXdHkoDY8ORbjJ74CKOBKKgAJwHi6TKgLy
+        aNKk5lElNEkQxAZ5cs/NjLXaGDyziwRH+uT17uzMp507d+5uJpCroseiF6LPon1Rw+qHPcc12tD23Lkh
+        eiU6ERmn/v5+MzQ0pOrr62udtzoWvRbdFqWmKHopaopMPp8309PTplqtmt3dXRNnZ2dHr01NTZlcLhc1
+        9VZUEiVivKur65f8mkKhYObm5kyj0bBDdoa2lUrFjIyMqBnp66f8jtFxCE9FJ3KzKZfL5uDgwHYfztHR
+        kfZBX/QpmmEAHzBhstlsc3Fx0XaXnpWVFeJIp1jU0cy46IQbNjc3bRen8+TbjLn79ZGK405sbGw4MzyZ
+        U6epSEzwCHHvw/CHaybzrqDi2IelpSWdJhEx0zaAWR06n74kMQKzs7NuNb1h4CjXRU1WR0hgJjVCALvV
+        JLqFAQeJx8zPz9umfiQ1AixtxhSRKBVS8THJKiRPQBojjGWTHhk4jxH2Bc2YoaQxAhMTE+6pPMQIm5Sm
+        5lDSGllbW3NGnmPkC3/29vbsZX/SGtne3nZGPmJkv7e31zSbTXv5HyQoOj9LV94Pt4xw3K5NVPGkx5iS
+        wTHyHSN1AjUO2dINcl6izzg2YP9cKiMXOjU9PT2tqbk0warLd3193V72J62R1dVVZ0SXryY0yrtQ0hqJ
+        JLQHGLmQFF+v112g8gaQwwjopsdGFEIaIwsLC+5pVDHgYCs2o6OjukX7ktTI4eGhKRaLzshNDEShSNGi
+        xZekRii+GEvUKgGilCjfKOOWl5ftLWeTxEitVjPd3d2Uir9lTN6b2nJHpMUzhW4nSFBkSxRPVu3Y2toy
+        g4ODrpK/z4BnQamv1bbvk/GBJzEwMOBMPGMgHzCjL1jETEgAxyEwiQmmQ/rEiLcJx5gt+U2pVNKlHfrK
+        yRJ1q8PGxD06TgLBpKsJkYAmJye1smKfiG6UHHOOtE3G5AuBu0/E6jg1MEMgz9AZhW5rAHZt91nCFjhR
+        0ZZk9V+eOA+ottkXKqJPIj7O1K04ZhdlA6ONVuZ+ZDJ/AbsDpENfnLa+AAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="BubbleExplain3.Text" xml:space="preserve">
+    <value>The bubbles with letters on them all have
+different effects can benefit or impede your
+progress. You won't know what each one does
+until you destroy it. Using the letter bubbles
+is crucial in attempting to win and attain a high
+score. Destroy them wisely.</value>
+  </data>
+  <data name="pictureBox6.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwa
+        AAAEQklEQVRYR62YTWxMURTHZ9oyQ1kgxAIJFrVgUR+p+kzFxlgg2qDaFOksxKKELsRnJEgIFioiIpQQ
+        EomgIqRRbCS+lXRURbWIahtNqabVdo7zv+/e6Zs3p/qmnX/yy3TeO/ec03fvPfe88cSp8cwmppR5zjQz
+        fzVN+hruwQa2Cdcs5hbTzZAhOcVPPt8oRXKyL3Jd08XcZhYxg9Zk5goTZsjnH01Tp62neUtOUSCnglYX
+        hKIIZFeoe1On5bLtKHtSd5gpzIC03OPx/uJP8g8bS+lz99Gq/LcxwfsCtrMXHKbUkRN1Mt5W/lwGx/Go
+        mOFp8FLajCCtWP9SDOaGlXmvlQ/4snx6tiOAGyEJSkoeGp6z8IjofCBkLD7B68ivppjpNxmeDk83BmQt
+        vyY6HAxZgasmGTyZPqeJFybWhFdlLzlKBBmLj+tpUmtGXMDYHWo+JQeJJG16IaYHlCGwXTOZMHaH24V5
+        9ORXevOuLQpck2ydYAH37ibPQiRghMJD6Zn7xYESoep2cqqq+o9oK4GtjZgMCqUSSnEXipXbOrF5x0cK
+        h3V0m3BtS/FHcYwTxNJFDxV4HBLBuaAqpjRA4tqNJh06VrgnjZGYkrbOPJUNSASHlCrNkrGT7A0hamj8
+        q8MSfW/opN9t3fobqXuwkcY6ycwqMYmcRyIv8CWQ81A0drLnUJ0OaQlPoPxRi/5maffBOnGsk2XZD0wi
+        T5FIM07O1QVVMYYSzqBFOz/RgSP1+pul8oct4thYqlDBkUgjEun0+ccIRrGsLXxPbX96p+FzfYe6nrMx
+        RC2tXfoqUXt7D+UGq2PGS2CTcA4dcSVy4vQ3HcrS5euNkXt3y3/qq5Zgax/bF/ZEXE/Ny8o2HcbSsVNf
+        qXhfreLsxQZ91RJsJR/R8NQkDYlMjavFGiyqoZ4eHcWFUFOCW2tEXwbnYlXbN3NJiWhsuHj1hw7hXqU8
+        RvJlyMw6aRJR21cXtFzR2FD3pUO7t/5b7Iz7FdE8ftKqLSxhjOTLYCtoBUik3xJfvLdWu7YU+tAu2qGQ
+        /WjqLXbQDh4r2a7KrzQlHm8AY5EIpA49HETSoDv3o3fEuUsNoh24UdasrSyV3fsp2s2af9A8jZtIwAhH
+        MY0YOUkd0c5BeOT2476QF67TxrBt16coW4x12qzMe0WpIyaYRBYgAbvQpKimxTkw0VjNtEoi0gLYxW0b
+        2je0isdFB4lg/tIz5PWqVvE3x8R7k6gAYzXP3OhKjgYDGvKUIcNNJ78WAf8ntPqq207kk8GTSEmJJLEH
+        gdwIyVgvWLxmpAXsFixMrAlrOtSrq+skjPi9Q7X83OhOUFs73ldObNHe3aHWxBo4HoiwmNRuAihAqIbo
+        rHBORB+UVeoayjZshvqiXsKxO/pcmPEIdQbO0OhGAuDUNj9L6AbHDmxRrGLqRCKEbhvnwgXmGYMfZzo1
+        +BunKA4w2KjO3J08nn+f9YrIcCVIkQAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="pictureBox7.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwa
+        AAAEDElEQVRYR7WYW0hUURSGxzEv2FOFkWCRYqUFXTSlTIUeCkxTqIesKMWoHiIiQvChq1RIUgaWD0Fo
+        EJEhdDOk6KJdiLyUkpCRZZEaqBne8u5q/Xv21uO4x86M44KPmTl777V/zllr7XXG4qQtYNKZG0wV084M
+        StrkNYxhDua63SKYB8wwQwpfqyfN8fIW+PB34xgzxDxk4phpWxBzixllaK6XD+0OCKL85VFUFrmJ6mOS
+        JvCCr2EMc+ayOKyRPGKCGZcswcNi6eJP8vf2odMhK6luQ+KkzR2BudlL19BC39lCDPvq5M94OHbGMphh
+        XkwHApfQh/UJ2s3MUBudKHzAF3wyx7CBGYMI8rZaR3OWhWudu8Ll0LWIKfGImf+KSWCGsaBoVazW4XSA
+        TykGd8bhYwpCTOAWQr3OkTu4FBohHhODmNEGMLJDPE+dA3eyPzBEZVMJNjZaODOK7HAUmK35hdRbWaOl
+        +3UFdT17RW3Xb1Fj2hHteiMIYJVNTCwEKEPhoTOcorqFoLP0OZm1P3dLqT42WetHgdTGngwKpTCU4iEU
+        q6nqhDNCYE2Z57R+FNhLFj1U4PkQgnNBVEPdAoW9kF/ZedSQnErfUg7Sz4wsGmptlyM26yi6r/VjZGfA
+        YnVX0iAEh5QozbrJCnshzadyJoxjY6O1F9yeMK7jSliUElIAIdX4UR61WTtZMaWQuGTqefdejrCNjFDj
+        3sMT1uvA2SSFVEBIu4/VSp80E43YC+mtqqGupy+pu/wtDTb9kldZQ18ftZzN1fqwB3tyBYeQVggZmMeB
+        qptoxGyw/q2rp+bj2VofOmTA9rtdiLLOx2VaP/YYhbj0aJA1X+J3Cb5u30fNJy/QSHePHLXZ/1IYe3p5
+        jD+a6QerpKO4RI7arOP2vUlzjNgHq0jfq5xKuskKM0I6n5TLUZtBmP0cI3lhkUqISF+XC5p4NFv30Pf0
+        o+IsGh0ckqM2a8m6qPWlMBS0VAiZkRLf39BInzdu0/oCH8dLPN4A/CEEJg49HES6RcAZIb3VtdSQlKr1
+        ozi/ZLW6G/chQBmOYlrERzOOaN3CqdoA0FX2hn7fLKYfhzK1643URCdQoK+fEhIDAUZDkyKaFt1id4Lm
+        C3sxYy2A0YLRvqGNy53BVvHainXcJnqgVezmPfHepLUtzIw1z3fYp5/nLNXJp2DDqQytvui23XlncCf8
+        PMdeJ05gIzMGMeIFCzHjKIDNgMC0vWB5QACEmBahLF62/Nzo+onUdvaVEymqskPGxA44dsUQTCKbAArQ
+        Lq6G6KxwThgPSnzHNZRtVEz8Q6DWMcgOh4HpjKHOwBka3bENcGqrvyVkg2MEc1GsJtUJdxi6bZwLhUwl
+        gz9nBiT4jlMUBxjmiM7cnFks/wB0nVpXhwrZHAAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="pictureBox8.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwa
+        AAAEPElEQVRYR62Ye2xNWRTG761bV7ziERd/zdQr4Z8mylDxShiJZyIhlRGving0TBCCBEkRj0EmxjMk
+        3q12zFBtiQjiEYJi2kjGozeNZ7QatEJUb++yvnX2rnPZ9/ac9n7JL6pn772+nL322uvU41JdmHTmMFPE
+        VDJfFG/U7/AMYzA27kphzjAhhjSJCc2pla+NgJ/tz5haJp8ZyjRZSUwWE2aota8tDQqMouk9l9LK5J20
+        qX9WBCuT/5JnqTwG5jBHUch0YxqlsUw1Q20S29HEn9JpQ7+jPwSPBsZOTppHHf2dlRlvFf87mnGlZQxv
+        g5eGd51AmSkHjcGcsD7lsKyBtaw1PUsRwIlggnwJieG0bhnGxRvD1O6/I49ki5kGzWA7QpiQ0SfTuGBT
+        WNA7U5vBm4m6TUhMzgmvuDctFA9+675QbZPkjDGBcTpkP00LxOSXLNo6OMf8zMCwruOxPaAAge3qy4Rx
+        Opwm5omMS/TgbBlVvf5I4bowQbU1Iaosq6KSM0HKWXiZNg/INs5FAn87TZ4hMKCFwkMTf55tnGjnzxEn
+        KXjjlQRuSA8Ky4xrABxtxGRQKEUoxbWtuFg1VCe2Dc2l8sfvVJhIhb7UEVkvpl5Prr4wrgMQSxU9VOAA
+        jOBekIppmmCnKOeRCqHEge/984QOpBXSloHZtH1YrmzJ06JyeRzLCBgYGKnfykwYwSUlpdk0WLNj1L+S
+        A3Zd21diHIvkPb/5Dj28+Mz8XDGtxxJt5CCM3MV/VhnuDjsFa2+q8JaqKz7RH4NOGMc6ZUXyDm3kNoxU
+        chWljf2PGwdr7uY+VhYsFecFjePcgJg+rw9GKmCkpnViW+NAO/9feKosWLq6N8q2uASHhD18bryRPcXG
+        cW6xG3G0Nff+jtya/06VGse5ATGb2bbGUbKeW39LWbCEirolNb7J6uj47h53mupCkRUr1vbkr7kh22l6
+        ppnWY7E2IsdXChraO9NgOyX5QWVBCQWNt2z/5AIpaLj4sudfpNLrL+Wxi4I2A0Ycl3jcM2+fVUuQ7+W+
+        xB/RJR5fAJ1gBJJLDxeRaZKdXWNO0fP7FSpUbBXnRU/oSUlz9dvIgwEtXMVyNeOKNk2MgEv4ySVXJAeq
+        yz/Wv4lQTR29Cb6X4ndszgXzXGZdyiFq7++kjQyGAbvQpEjTYpocE5eNkdVMi4n6FsAutG3cvnm5nVtk
+        XCAezOq1nLxWq/iB46E9NWoMI80zGl3TQk0ho8868jdroTv5KQgYS2j1pduO55vBm2ie4NcmViOQE8GM
+        fGAhZxwlcBSQmMgJazvk09WxCS18d6Dlpw7+gBxtt5+cOKK204GcSGMaJSSTnCaAApQa+FU6K9wT9osS
+        P+N3KNuomC0jP8JxOqImphuhzmAxNLr1AXBrwxxQDY4djEWx+qFOxEPotnEvHGLuMPjjTI0CP+MWxQWG
+        MdKZO5PH8xU29BbOGg/jowAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="pictureBox9.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwa
+        AAAECklEQVRYR7WYWUiUURTHZyY1fSgy0mrKwMBqtKINJFKJtCK16CFJWrBsIypStEdbHupZ6zWXNkuK
+        0swgMqSkaIVe6qEg0LLSNrRSS/F0/ncZPmeu9o1+Hvnh6HfuvX/vPfec8+kK0aYx+cw55jnzlfmr+KJ+
+        h2fwga/jtpS5yfQzpPFEeGjchHCBmz9bnzF9TD2Txoza4plqZoChsInhNHm1l+IKkyihLJkSL6QNIqE0
+        WTybnOEV4jBG0cDMZkZkWUwXQ2GTImj6zgTyVaUGLT4U8PXunUsRsVFSjNvVyd/XMSHZEaafB9OU9XE0
+        7+wK42J28FWkiDkwl5jT5SrCAnYMIsgd7hmYsX+ecfKRMPOQDzEljpj5rxgcRz8GxB9fbJxwNMQfW6TF
+        YGeGPCYEZhe2EOpNEznBzAM+eUwyZowBjNshztM0gZNMyeaYkUd0CwtbbQkzgNthCsztdw7So4/PjTS9
+        f0hX39bTqWdltK52S9BYEwhg/21yuVIhQBsSj7iipoGH75eQXWtue0Lp13OM81jB1caaDBKlMKTiPiSr
+        ofJEKEJg33p+0Obb+4xzabCWSnrIwLEQgrogMqZpAAgU8qDtMa25kUubGnbT7sYiqnx9hbr7etRTaZ9+
+        t9PymmzjfJrodK/elR0QgiIlUrPJGQQKudPSFOSTWbeVd+K78pBW8epykJ+VuIIkLaQSQl7ghzmng2uH
+        xo4QUNx8QnlIg7CFl1YZfQFqkxLyFEK+chalxPNmZ2BXyOLqDOrp71Ve0rLqthl9BbymO0xU7Q4I+YNA
+        NToq7AoBLV0flJe0XY2FRj+NCtjeMReSf9e+EMeOZlF1OvUE3J5hk5w4Grf/aBwL1oL7R5WHNFzhBRdX
+        Gn1BYLDK68tXyeQM7AjBX97e/UV5SDvzsjzIz0rc4UQtRFxfmdC4vTM5g0AhSGhra3Mpp2GPSGjIF11/
+        f6mn0t51ttCyy2uN82ksCS0PQhxP8Z9/d9CG+jzjXBpfpT/F4w0gBkJgouihEJkG2RUywF93Wx9Q2rWN
+        xnmsePfM0btRBwHaUIopYmqUKNGBg4ZrA+61NlPNmzo6+bRUHFfgWBO+8hQKj4nUQlIgwGpoUkTTYhrs
+        JKKZliL8LYDV0LZ1ilbx4Ni1irOK5+tW8Sevh/bUaJmMbJ650TVNNBrQkHsix+lOPhcLDmdo9UW37eTO
+        YCc84/0iSrCQHYMY+YLFMWMKYLsgMC0vWBBiW4Q2vHeg5edGN1Jc7ZBfOfmKWm4HYmIzMyJDMInbBJCA
+        ojkDoxygTgwqlPxZvIRz2kbGVMlKg9sxZGCGYsgzmAyNrn8BVG0sCFSDYwW+SFZBecIJQ7eNulDFPGPw
+        z5k/CnxGFUUBg4/ozO2Zy/UP9quNyqR5faIAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="pictureBox10.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwa
+        AAADTUlEQVRYR8WYy08TURSHp8WWtptCiEpLF1KjqDEaEYn42iOJJgLqRiDudaOoC4nRiA9qojtdKOjG
+        hXEhFOJjYxB8of4jygbdiJBez+84d3I7HOh0OupJvrRMzz33ZO55XawypZ44STwiPhOzxC+bb/Yz/AYd
+        6AYuO4kxYpFQmlgsrGpqIkx1ddh5brNA5IkDRMXSSDwmCoSqrY2o7qMplbu1WY2N71IfZvYWMZpv4d+6
+        ulPsHNbYTBBZwpd0hELWd/pUdXVRde7CejX9bs+SzZcDugOXNqiGhhg7Q7bm6LMdhsuRfmKRFque3ox6
+        Pblb3MwLb6bb2AZswSZxBht4ETihotFw4fKVjaJxPwxeb0Ic8RETJZ3pIBax4MHwNtFgJdwnm7YzeDPL
+        HlMjYgKvEN5LhoLg6mATHxOBmBEDGNnB5ykZCJITPRmdTePY2JRmooDsWCkwT51ep3Y0Jz0BXckGQADr
+        bCL2wwEtKDzqPKWotFBz6PBavbgk0JVsaJDati4KJQtK8QKKVak6EaQj2MsueqjAawjuC1wxpQUmbkd6
+        +zLq7r2tIk+eNos2TI501mtbfQQ3KS7NkrKJ2xG8XknPKzdzm7StEcL6gj/yE0t7hxu3I2f7s+rFq1aR
+        9x9lGybPxlq0rRnCmqUq6mlhOTHy/GWraMMEe0Yi3LW/EtY8AlVSdBO0I6CG9ib9n4R/R+KJKpVMrhLB
+        8Ug23JiO+D6aSoP1z9GEYIuPxnewVuqIO1g5fYdy/z59bwwVpy8XNIx3krKJ25EAC1ov8X9K/NRbp8Tj
+        BrCaYOGmV+pVB+nIxQGn6Y0SjqAVq0wmxi1aWgiCGgMmp9pUOu2MAfvggCkYUnhokRYHCYYv7EU4I4Ap
+        WYxvPCpe+3uj4u07W/So+IP2xL1JlIMED88YdCVDlTA8sl0lElV6kj+ODVcSjPo8bQf5ZvAm4nHHiQFs
+        5EXgDF+wEDMrBXApEJjGBQuOeHZCSzstxsiv0jToIrXLvXIiRXV22DFxDIb9CIKJswmgAHV2pXiyQp8w
+        GyW+4xnKNipmsvgSjuxYNjDLEdQZGMOg62yArg3ngD3gmEAXxWpJnQhCMG2jLzwkPhH458y8Db6ji6KB
+        QYcnc29iWb8BrnatnSscnvcAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="pictureBox11.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwa
+        AAADZ0lEQVRYR82Yy0tUcRTH547P0WbGUceCTNA/ocdOXdXC3LRKkygrg9ZJRIuKHgSFJtoDaZNurE2L
+        Hu7K2gRRWgbpohZRRIFNwRRR6uDpfH/c3+U3d44zd2Zu5IEP8zq/8/ty7/mdc+4E8rQNzEFmnJlmEsyS
+        zVf7O/wGH/j6bluYe0yKIU1luUWx6qCiosxyvrdZZu4z7UzR1sxMMCsM1a4LUk97iK4ejtLU2XqaG2lI
+        49GZOvXbnrYQxdgXa2wmmRamIOu0AoEf/Er1kSCd2h2m10PpG2cDvhf2RmhTfYkSw7GS/NqBwPnYMSbF
+        i6lvRxVND8TFzbzwcjCuYiAWYjL92MCLQQSVl1orF/dFxOCFcPlAlCrLLHWLmZxiOpkUFtzqj4kBi2Hi
+        aEyLwZVZ9TY1IydwCaFeCuQHA70RdZssS+WMmMA4Hep+SgH85ND2Kn2aHmBj0zYzKzgd2RLz8+Pj9OvT
+        U0/AV4oBkMD6NDFtEKANhYdOd4XFhZrEq1HyavCVYmhwtLEng0KpDKV4GcUqV53wUwj2soseKnADhKAv
+        qIopLTBxC/k2e4Pe39kl8m58mxjDpLs1pK9KL4SgSanSLDmbuIV8eXJC9PPKSF9UC7kJITP4MHUus3e4
+        8VvIQ+5NtpDnEJKoKLXozbDsbOIWkvr9nZaSH0TmrzWKMUywJ1dwCFmAkMXacFB0dOMWks3mrzeJMdzg
+        kLCGP2tKSMG3ZuHZJXo7tlVkbmR9xno32LOsROWIujVrJlnV8b3yH47vsOv4qoKG8U5yNvFbiFHQ9kNI
+        wSW+GCGzQ3Fd4vEEEIcQmGp6aETSIo2fQs73OE3vLgRoQyumJm7NaNHSQuAeAz5O9op+uZjhPTbWOWNA
+        KwSYhiFFDS3SYj/B8IW9GGcEMK2FR7gkxrjBfzgqjh6pwZiIcfEn74nnJtF2Mmp4xqArBSqG2zyQV1U4
+        k3w3NsxmGPXVtO3nlcGVCJU7Ik5iIy8GMeoBCzmTLYFzgcRUD1h8OzgmhHgWoa0DOcOv1MgZjqOd7yMn
+        jqg+HXZOdCFwIYZkUqcJoAChAmOyQp8wGyXe4zuUbVTMmuq0h3CcjlUTMx9DnUEwDLrOBuja+m8Je8Ax
+        gS+KVUad8MMwbaMvjDEvGPw5s2iD9+iiaGDwUZO5NwsE/gIL90oZ8UjxawAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="ExplainText2.Text" xml:space="preserve">
+    <value>There are three 'levels' to the grid: the main grid
+which is a 7 wide by 5 tall array, the buffer row
+which is 7 wide, and the spawners at the very
+top. Spawners will have a chance of dropping a
+new bubble every time a bubble in the same
+column is destroyed. Spawners will never drop
+new bubbles in the buffer row. The buffer row
+is only used for events, which have a chance
+of occuring after every action you make and
+can spawn a variety of things in the buffer row.
+If all spaces in a column in main grid is filled with
+bubbles, no new bubble will spawn in the buffer
+row. If the buffer row has even a single bubble
+in it, no new events will occur until it is cleared.
+Now go try out the game and good luck!</value>
+  </data>
+</root>
