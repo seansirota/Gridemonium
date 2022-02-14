@@ -35,6 +35,7 @@ namespace Gridemonium
                 {
                     PictureBox box = BoxList.Find(x => x.Name == "Bubble" + LetterList[i].ToString() + j.ToString());
                     Bubble bubble = new Bubble(LetterList[i], j, box);
+                    BubbleGrid.Add(bubble.Name, bubble);
                 }
             }
         }

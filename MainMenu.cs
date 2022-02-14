@@ -12,6 +12,7 @@ namespace Gridemonium
 {
     public partial class MainMenu : Form
     {
+        public GameRoom game = new GameRoom();
         public MainMenu()
         {
             InitializeComponent();
@@ -20,7 +21,6 @@ namespace Gridemonium
         private void NormalMode_Click(object sender, EventArgs e)
         {
             this.Hide();
-            GameRoom game = new GameRoom();
             game.Show();
         }
     }

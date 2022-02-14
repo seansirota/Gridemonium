@@ -13,7 +13,8 @@ namespace Gridemonium
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainMenu());
+            MainMenu mainMenu = new MainMenu();            
+            Application.Run(mainMenu);
         }
     }
 }
