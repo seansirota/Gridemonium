@@ -23,6 +23,8 @@ namespace Gridemonium
 
             foreach (PictureBox box in BufferBox.Controls)
                 BoxList.Add(box);
+
+            AssignBubbles();
         }
 
         public void AssignBubbles()
@@ -33,7 +35,6 @@ namespace Gridemonium
                 {
                     PictureBox box = BoxList.Find(x => x.Name == "Bubble" + LetterList[i].ToString() + j.ToString());
                     Bubble bubble = new Bubble(LetterList[i], j, box);
-
                 }
             }
         }
