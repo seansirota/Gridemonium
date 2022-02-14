@@ -94,6 +94,7 @@
             this.Percent7 = new System.Windows.Forms.Label();
             this.Score = new System.Windows.Forms.Label();
             this.Ammo = new System.Windows.Forms.Label();
+            this.EventText = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.BubbleA1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BubbleB1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BubbleC1)).BeginInit();
@@ -618,6 +619,7 @@
             this.BubbleE0.Size = new System.Drawing.Size(34, 34);
             this.BubbleE0.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.BubbleE0.TabIndex = 39;
+            this.BubbleE0.TabStop = false;
             // 
             // radioButton1
             // 
@@ -828,11 +830,21 @@
             this.Ammo.TabIndex = 60;
             this.Ammo.Text = "Ammo: 0";
             // 
+            // EventText
+            // 
+            this.EventText.AutoSize = true;
+            this.EventText.Location = new System.Drawing.Point(228, 366);
+            this.EventText.Name = "EventText";
+            this.EventText.Size = new System.Drawing.Size(36, 13);
+            this.EventText.TabIndex = 61;
+            this.EventText.Text = "None.";
+            // 
             // GameRoom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(576, 497);
+            this.Controls.Add(this.EventText);
             this.Controls.Add(this.Ammo);
             this.Controls.Add(this.Score);
             this.Controls.Add(this.Percent7);
@@ -976,5 +988,6 @@
         private System.Windows.Forms.Label Percent7;
         private System.Windows.Forms.Label Score;
         private System.Windows.Forms.Label Ammo;
+        private System.Windows.Forms.Label EventText;
     }
 }

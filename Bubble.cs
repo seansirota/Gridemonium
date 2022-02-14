@@ -27,5 +27,10 @@ namespace Gridemonium
             Image = box.Image;
             State = "Destroyed";
         }
+
+        public void SpawnBubble()
+        {
+
+        }
     }
 }
