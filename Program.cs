@@ -8,6 +8,7 @@ namespace Gridemonium
 {
     internal static class Program
     {
+        //Main method that starts the MainMenu form.
         [STAThread]
         static void Main()
         {

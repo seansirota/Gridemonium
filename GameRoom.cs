@@ -17,6 +17,7 @@ namespace Gridemonium
         private readonly char[] LetterList = { 'A', 'B', 'C', 'D', 'E', 'F', 'G' };
         public GameRoom()
         {
+            //Instantiate all objects in GameRoom form and add all the picture boxes to a list so they can be added to the BubbleGrid after.
             InitializeComponent();
             foreach (PictureBox box in MainBox.Controls)
                 BoxList.Add(box);
@@ -27,6 +28,7 @@ namespace Gridemonium
 
         public void AssignBubbles()
         {
+            //Creates a new Bubble object for each coordinate on the grid and links Bubble with picture box of the same name.
             for (int i = 0; i < LetterList.Length; i++)
             {
                 for (int j = 0; j < 6; j++)
@@ -43,6 +45,8 @@ namespace Gridemonium
             int spawnRow;
             int fallRow;
 
+            //This section goes through a nested loop that first spawns a Bubble, has it fall all the way down to the bottom of the grid, and then
+            //repeat until every space in a column is filled with bubbles. Then, it moves on to the next column until each column is filled.
             foreach (char letter in LetterList)
             {                
                 do

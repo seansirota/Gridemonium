@@ -17,6 +17,8 @@ namespace Gridemonium
             InitializeComponent();            
         }
 
+        //Normal Mode button click event. Builds the room and instantiates all Bubble objects.
+        //All mode specific parameters are also set here before starting the game.
         private void NormalMode_Click(object sender, EventArgs e)
         {
             this.Hide();
