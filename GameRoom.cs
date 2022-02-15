@@ -13,7 +13,7 @@ namespace Gridemonium
     public partial class GameRoom : Form
     {
         public List<PictureBox> BoxList = new List<PictureBox>();
-        public Dictionary<string, Bubble> BubbleGrid { get; set; }
+        public Dictionary<string, Bubble> BubbleGrid { get; set; } = new Dictionary<string, Bubble>();
         private readonly char[] LetterList = { 'A', 'B', 'C', 'D', 'E', 'F', 'G' };
         public GameRoom()
         {
@@ -23,8 +23,6 @@ namespace Gridemonium
 
             foreach (PictureBox box in BufferBox.Controls)
                 BoxList.Add(box);
-
-            AssignBubbles();
         }
 
         public void AssignBubbles()
@@ -37,6 +35,28 @@ namespace Gridemonium
                     Bubble bubble = new Bubble(LetterList[i], j, box);
                     BubbleGrid.Add(bubble.Name, bubble);
                 }
+            }
+        }
+
+        public void InitiateGrid()
+        {
+            int spawnRow;
+            int fallRow;
+
+            foreach (char letter in LetterList)
+            {                
+                do
+                {
+                    spawnRow = BubbleGrid["Bubble" + letter.ToString() + "1"].SpawnBubble(BubbleGrid, letter, false);                    
+
+                    if (spawnRow > -1)
+                    {
+                        fallRow = spawnRow;
+                        do
+                            fallRow = BubbleGrid["Bubble" + letter.ToString() + fallRow.ToString()].BubbleFall(BubbleGrid, letter, fallRow, false);
+                        while (fallRow > -1);
+                    }                        
+                } while (spawnRow > -1);
             }
         }
     }

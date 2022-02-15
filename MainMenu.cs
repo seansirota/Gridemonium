@@ -12,16 +12,18 @@ namespace Gridemonium
 {
     public partial class MainMenu : Form
     {
-        public GameRoom game = new GameRoom();
         public MainMenu()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
 
         private void NormalMode_Click(object sender, EventArgs e)
         {
             this.Hide();
+            GameRoom game = new GameRoom();
             game.Show();
+            game.AssignBubbles();
+            game.InitiateGrid();
         }
     }
 }
