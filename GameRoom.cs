@@ -54,14 +54,17 @@ namespace Gridemonium
                     spawnRow = BubbleGrid["Bubble" + letter.ToString() + "1"].SpawnBubble(BubbleGrid, letter, false);                    
 
                     if (spawnRow > -1)
-                    {
-                        fallRow = spawnRow;
-                        do
-                            fallRow = BubbleGrid["Bubble" + letter.ToString() + fallRow.ToString()].BubbleFall(BubbleGrid, letter, fallRow, false);
-                        while (fallRow > -1);
-                    }                        
+                        DropUntilStop(spawnRow, letter);       
                 } while (spawnRow > -1);
             }
+        }
+
+        //Has an object that starts at a place in the grid fall until it can't fall anymore.
+        public void DropUntilStop(int fallRow, char letter)
+        {
+            do
+                fallRow = BubbleGrid["Bubble" + letter.ToString() + fallRow.ToString()].BubbleFall(BubbleGrid, letter, fallRow, false);
+            while (fallRow > -1);
         }
     }
 }
