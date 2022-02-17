@@ -85,13 +85,13 @@
             this.FunnelUp = new System.Windows.Forms.RadioButton();
             this.SnipeUp = new System.Windows.Forms.RadioButton();
             this.PowerUpButton = new System.Windows.Forms.Button();
-            this.Percent1 = new System.Windows.Forms.Label();
-            this.Percent2 = new System.Windows.Forms.Label();
-            this.Percent3 = new System.Windows.Forms.Label();
-            this.Percent4 = new System.Windows.Forms.Label();
-            this.Percent5 = new System.Windows.Forms.Label();
-            this.Percent6 = new System.Windows.Forms.Label();
-            this.Percent7 = new System.Windows.Forms.Label();
+            this.PercentA = new System.Windows.Forms.Label();
+            this.PercentB = new System.Windows.Forms.Label();
+            this.PercentC = new System.Windows.Forms.Label();
+            this.PercentD = new System.Windows.Forms.Label();
+            this.PercentE = new System.Windows.Forms.Label();
+            this.PercentF = new System.Windows.Forms.Label();
+            this.PercentG = new System.Windows.Forms.Label();
             this.Score = new System.Windows.Forms.Label();
             this.Ammo = new System.Windows.Forms.Label();
             this.EventText = new System.Windows.Forms.Label();
@@ -635,6 +635,7 @@
             this.RadioA.TabIndex = 37;
             this.RadioA.TabStop = true;
             this.RadioA.UseVisualStyleBackColor = true;
+            this.RadioA.CheckedChanged += new System.EventHandler(this.RadioButtonChecked);
             // 
             // RadioB
             // 
@@ -645,6 +646,7 @@
             this.RadioB.TabIndex = 38;
             this.RadioB.TabStop = true;
             this.RadioB.UseVisualStyleBackColor = true;
+            this.RadioB.CheckedChanged += new System.EventHandler(this.RadioButtonChecked);
             // 
             // RadioC
             // 
@@ -655,6 +657,7 @@
             this.RadioC.TabIndex = 39;
             this.RadioC.TabStop = true;
             this.RadioC.UseVisualStyleBackColor = true;
+            this.RadioC.CheckedChanged += new System.EventHandler(this.RadioButtonChecked);
             // 
             // RadioD
             // 
@@ -665,6 +668,7 @@
             this.RadioD.TabIndex = 40;
             this.RadioD.TabStop = true;
             this.RadioD.UseVisualStyleBackColor = true;
+            this.RadioD.CheckedChanged += new System.EventHandler(this.RadioButtonChecked);
             // 
             // RadioE
             // 
@@ -675,6 +679,7 @@
             this.RadioE.TabIndex = 41;
             this.RadioE.TabStop = true;
             this.RadioE.UseVisualStyleBackColor = true;
+            this.RadioE.CheckedChanged += new System.EventHandler(this.RadioButtonChecked);
             // 
             // RadioF
             // 
@@ -685,6 +690,7 @@
             this.RadioF.TabIndex = 42;
             this.RadioF.TabStop = true;
             this.RadioF.UseVisualStyleBackColor = true;
+            this.RadioF.CheckedChanged += new System.EventHandler(this.RadioButtonChecked);
             // 
             // RadioG
             // 
@@ -695,6 +701,7 @@
             this.RadioG.TabIndex = 43;
             this.RadioG.TabStop = true;
             this.RadioG.UseVisualStyleBackColor = true;
+            this.RadioG.CheckedChanged += new System.EventHandler(this.RadioButtonChecked);
             // 
             // ActionButton
             // 
@@ -709,12 +716,13 @@
             // TransformUp
             // 
             this.TransformUp.AutoSize = true;
+            this.TransformUp.Checked = true;
             this.TransformUp.Location = new System.Drawing.Point(4, 17);
             this.TransformUp.Name = "TransformUp";
-            this.TransformUp.Size = new System.Drawing.Size(86, 17);
+            this.TransformUp.Size = new System.Drawing.Size(84, 17);
             this.TransformUp.TabIndex = 47;
             this.TransformUp.TabStop = true;
-            this.TransformUp.Text = "x0 Transform";
+            this.TransformUp.Text = "Transform: 0";
             this.TransformUp.UseVisualStyleBackColor = true;
             // 
             // FunnelUp
@@ -722,10 +730,9 @@
             this.FunnelUp.AutoSize = true;
             this.FunnelUp.Location = new System.Drawing.Point(4, 40);
             this.FunnelUp.Name = "FunnelUp";
-            this.FunnelUp.Size = new System.Drawing.Size(71, 17);
+            this.FunnelUp.Size = new System.Drawing.Size(69, 17);
             this.FunnelUp.TabIndex = 48;
-            this.FunnelUp.TabStop = true;
-            this.FunnelUp.Text = "x0 Funnel";
+            this.FunnelUp.Text = "Funnel: 0";
             this.FunnelUp.UseVisualStyleBackColor = true;
             // 
             // SnipeUp
@@ -733,10 +740,9 @@
             this.SnipeUp.AutoSize = true;
             this.SnipeUp.Location = new System.Drawing.Point(4, 63);
             this.SnipeUp.Name = "SnipeUp";
-            this.SnipeUp.Size = new System.Drawing.Size(66, 17);
+            this.SnipeUp.Size = new System.Drawing.Size(64, 17);
             this.SnipeUp.TabIndex = 49;
-            this.SnipeUp.TabStop = true;
-            this.SnipeUp.Text = "x0 Snipe";
+            this.SnipeUp.Text = "Snipe: 0";
             this.SnipeUp.UseVisualStyleBackColor = true;
             // 
             // PowerUpButton
@@ -747,76 +753,77 @@
             this.PowerUpButton.TabIndex = 51;
             this.PowerUpButton.Text = "Apply";
             this.PowerUpButton.UseVisualStyleBackColor = true;
+            this.PowerUpButton.Click += new System.EventHandler(this.PowerUpButton_Click);
             // 
-            // Percent1
+            // PercentA
             // 
-            this.Percent1.AutoSize = true;
-            this.Percent1.Location = new System.Drawing.Point(152, 30);
-            this.Percent1.Name = "Percent1";
-            this.Percent1.Size = new System.Drawing.Size(33, 13);
-            this.Percent1.TabIndex = 52;
-            this.Percent1.Text = "100%";
-            this.Percent1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.PercentA.AutoSize = true;
+            this.PercentA.Location = new System.Drawing.Point(152, 30);
+            this.PercentA.Name = "PercentA";
+            this.PercentA.Size = new System.Drawing.Size(33, 13);
+            this.PercentA.TabIndex = 52;
+            this.PercentA.Text = "100%";
+            this.PercentA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Percent2
+            // PercentB
             // 
-            this.Percent2.AutoSize = true;
-            this.Percent2.Location = new System.Drawing.Point(192, 30);
-            this.Percent2.Name = "Percent2";
-            this.Percent2.Size = new System.Drawing.Size(33, 13);
-            this.Percent2.TabIndex = 53;
-            this.Percent2.Text = "100%";
-            this.Percent2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.PercentB.AutoSize = true;
+            this.PercentB.Location = new System.Drawing.Point(192, 30);
+            this.PercentB.Name = "PercentB";
+            this.PercentB.Size = new System.Drawing.Size(33, 13);
+            this.PercentB.TabIndex = 53;
+            this.PercentB.Text = "100%";
+            this.PercentB.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Percent3
+            // PercentC
             // 
-            this.Percent3.AutoSize = true;
-            this.Percent3.Location = new System.Drawing.Point(232, 30);
-            this.Percent3.Name = "Percent3";
-            this.Percent3.Size = new System.Drawing.Size(33, 13);
-            this.Percent3.TabIndex = 54;
-            this.Percent3.Text = "100%";
-            this.Percent3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.PercentC.AutoSize = true;
+            this.PercentC.Location = new System.Drawing.Point(232, 30);
+            this.PercentC.Name = "PercentC";
+            this.PercentC.Size = new System.Drawing.Size(33, 13);
+            this.PercentC.TabIndex = 54;
+            this.PercentC.Text = "100%";
+            this.PercentC.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Percent4
+            // PercentD
             // 
-            this.Percent4.AutoSize = true;
-            this.Percent4.Location = new System.Drawing.Point(272, 30);
-            this.Percent4.Name = "Percent4";
-            this.Percent4.Size = new System.Drawing.Size(33, 13);
-            this.Percent4.TabIndex = 55;
-            this.Percent4.Text = "100%";
-            this.Percent4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.PercentD.AutoSize = true;
+            this.PercentD.Location = new System.Drawing.Point(272, 30);
+            this.PercentD.Name = "PercentD";
+            this.PercentD.Size = new System.Drawing.Size(33, 13);
+            this.PercentD.TabIndex = 55;
+            this.PercentD.Text = "100%";
+            this.PercentD.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Percent5
+            // PercentE
             // 
-            this.Percent5.AutoSize = true;
-            this.Percent5.Location = new System.Drawing.Point(312, 30);
-            this.Percent5.Name = "Percent5";
-            this.Percent5.Size = new System.Drawing.Size(33, 13);
-            this.Percent5.TabIndex = 56;
-            this.Percent5.Text = "100%";
-            this.Percent5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.PercentE.AutoSize = true;
+            this.PercentE.Location = new System.Drawing.Point(312, 30);
+            this.PercentE.Name = "PercentE";
+            this.PercentE.Size = new System.Drawing.Size(33, 13);
+            this.PercentE.TabIndex = 56;
+            this.PercentE.Text = "100%";
+            this.PercentE.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Percent6
+            // PercentF
             // 
-            this.Percent6.AutoSize = true;
-            this.Percent6.Location = new System.Drawing.Point(352, 30);
-            this.Percent6.Name = "Percent6";
-            this.Percent6.Size = new System.Drawing.Size(33, 13);
-            this.Percent6.TabIndex = 57;
-            this.Percent6.Text = "100%";
-            this.Percent6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.PercentF.AutoSize = true;
+            this.PercentF.Location = new System.Drawing.Point(352, 30);
+            this.PercentF.Name = "PercentF";
+            this.PercentF.Size = new System.Drawing.Size(33, 13);
+            this.PercentF.TabIndex = 57;
+            this.PercentF.Text = "100%";
+            this.PercentF.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Percent7
+            // PercentG
             // 
-            this.Percent7.AutoSize = true;
-            this.Percent7.Location = new System.Drawing.Point(392, 30);
-            this.Percent7.Name = "Percent7";
-            this.Percent7.Size = new System.Drawing.Size(33, 13);
-            this.Percent7.TabIndex = 58;
-            this.Percent7.Text = "100%";
-            this.Percent7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.PercentG.AutoSize = true;
+            this.PercentG.Location = new System.Drawing.Point(392, 30);
+            this.PercentG.Name = "PercentG";
+            this.PercentG.Size = new System.Drawing.Size(33, 13);
+            this.PercentG.TabIndex = 58;
+            this.PercentG.Text = "100%";
+            this.PercentG.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Score
             // 
@@ -850,11 +857,11 @@
             this.PowerUpGroup.Controls.Add(this.TransformUp);
             this.PowerUpGroup.Controls.Add(this.FunnelUp);
             this.PowerUpGroup.Controls.Add(this.SnipeUp);
-            this.PowerUpGroup.Location = new System.Drawing.Point(351, 427);
-            this.PowerUpGroup.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.PowerUpGroup.Location = new System.Drawing.Point(316, 429);
+            this.PowerUpGroup.Margin = new System.Windows.Forms.Padding(1);
             this.PowerUpGroup.Name = "PowerUpGroup";
-            this.PowerUpGroup.Padding = new System.Windows.Forms.Padding(1, 1, 1, 1);
-            this.PowerUpGroup.Size = new System.Drawing.Size(84, 83);
+            this.PowerUpGroup.Padding = new System.Windows.Forms.Padding(1);
+            this.PowerUpGroup.Size = new System.Drawing.Size(115, 83);
             this.PowerUpGroup.TabIndex = 62;
             this.PowerUpGroup.TabStop = false;
             this.PowerUpGroup.Text = "Power Ups";
@@ -885,13 +892,13 @@
             this.Controls.Add(this.EventText);
             this.Controls.Add(this.Ammo);
             this.Controls.Add(this.Score);
-            this.Controls.Add(this.Percent7);
-            this.Controls.Add(this.Percent6);
-            this.Controls.Add(this.Percent5);
-            this.Controls.Add(this.Percent4);
-            this.Controls.Add(this.Percent3);
-            this.Controls.Add(this.Percent2);
-            this.Controls.Add(this.Percent1);
+            this.Controls.Add(this.PercentG);
+            this.Controls.Add(this.PercentF);
+            this.Controls.Add(this.PercentE);
+            this.Controls.Add(this.PercentD);
+            this.Controls.Add(this.PercentC);
+            this.Controls.Add(this.PercentB);
+            this.Controls.Add(this.PercentA);
             this.Controls.Add(this.PowerUpButton);
             this.Controls.Add(this.ActionButton);
             this.Controls.Add(this.BufferBox);
@@ -1011,13 +1018,13 @@
         private System.Windows.Forms.RadioButton FunnelUp;
         private System.Windows.Forms.RadioButton SnipeUp;
         private System.Windows.Forms.Button PowerUpButton;
-        private System.Windows.Forms.Label Percent1;
-        private System.Windows.Forms.Label Percent2;
-        private System.Windows.Forms.Label Percent3;
-        private System.Windows.Forms.Label Percent4;
-        private System.Windows.Forms.Label Percent5;
-        private System.Windows.Forms.Label Percent6;
-        private System.Windows.Forms.Label Percent7;
+        private System.Windows.Forms.Label PercentA;
+        private System.Windows.Forms.Label PercentB;
+        private System.Windows.Forms.Label PercentC;
+        private System.Windows.Forms.Label PercentD;
+        private System.Windows.Forms.Label PercentE;
+        private System.Windows.Forms.Label PercentF;
+        private System.Windows.Forms.Label PercentG;
         private System.Windows.Forms.Label Score;
         private System.Windows.Forms.Label Ammo;
         private System.Windows.Forms.Label EventText;

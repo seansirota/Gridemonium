@@ -81,6 +81,7 @@
             this.Guide.TabIndex = 4;
             this.Guide.Text = "Guide";
             this.Guide.UseVisualStyleBackColor = true;
+            this.Guide.Click += new System.EventHandler(this.Guide_Click);
             // 
             // MainMenu
             // 
