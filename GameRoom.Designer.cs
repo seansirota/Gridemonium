@@ -628,6 +628,7 @@
             // RadioA
             // 
             this.RadioA.AutoSize = true;
+            this.RadioA.Checked = true;
             this.RadioA.Location = new System.Drawing.Point(6, 19);
             this.RadioA.Name = "RadioA";
             this.RadioA.Size = new System.Drawing.Size(14, 13);
@@ -701,7 +702,7 @@
             this.ActionButton.Name = "ActionButton";
             this.ActionButton.Size = new System.Drawing.Size(80, 30);
             this.ActionButton.TabIndex = 44;
-            this.ActionButton.Text = "Standby";
+            this.ActionButton.Text = "Fire";
             this.ActionButton.UseVisualStyleBackColor = true;
             this.ActionButton.Click += new System.EventHandler(this.ActionButton_Click);
             // 

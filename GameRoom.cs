@@ -13,10 +13,7 @@ namespace Gridemonium
     public partial class GameRoom : Form
     {
         //Initially used to contain every picture box control.
-        public List<PictureBox> BoxList = new List<PictureBox>();
-
-        //The main container of bubble objects. Used for wayfinding the bubble grid and manipulating each bubble object.
-        public Dictionary<string, Bubble> BubbleGrid { get; set; } = new Dictionary<string, Bubble>();
+        public List<PictureBox> BoxList = new List<PictureBox>();        
 
         //Useful for looping through each column without converting int to char.
         private readonly char[] LetterList = { 'A', 'B', 'C', 'D', 'E', 'F', 'G' };
@@ -41,7 +38,7 @@ namespace Gridemonium
                 {
                     PictureBox box = BoxList.Find(x => x.Name == "Bubble" + LetterList[i].ToString() + j.ToString());
                     Bubble bubble = new Bubble(LetterList[i], j, box);
-                    BubbleGrid.Add(bubble.Name, bubble);
+                    Bubble.BubbleGrid.Add(bubble.Name, bubble);
                 }
             }
         }
@@ -57,13 +54,13 @@ namespace Gridemonium
 
                 do
                 {
-                    spawnRow = BubbleGrid["Bubble" + letter.ToString() + "1"].SpawnBubble(BubbleGrid, letter, 1, false, "blank");
+                    spawnRow = Bubble.BubbleGrid["Bubble" + letter.ToString() + "1"].SpawnBubble(false, "blank");
 
                     if (spawnRow > -1)
                     {
                         fallRow = spawnRow;
                         do
-                            fallRow = BubbleGrid["Bubble" + letter.ToString() + fallRow.ToString()].BubbleFall(BubbleGrid, letter, fallRow, false);
+                            fallRow = Bubble.BubbleGrid["Bubble" + letter.ToString() + fallRow.ToString()].BubbleFall(false);
                         while (fallRow > -1);
                     }
                 } while (spawnRow > -1);
@@ -77,7 +74,7 @@ namespace Gridemonium
 
             while (row > 0)
             {
-                row = BubbleGrid["Bubble" + letter.ToString() + row.ToString()].BubbleFall(BubbleGrid, letter, row, waitFlag);
+                row = Bubble.BubbleGrid["Bubble" + letter.ToString() + row.ToString()].BubbleFall(waitFlag);
                 if (row > 1)
                     row -= 2;
             }               
@@ -92,28 +89,32 @@ namespace Gridemonium
             if (columnChoice == null)
             {
                 EventText.Text = "No column selected.";
+                ActionButton.Text = "Error";
                 return;
             }
+            else
+                ActionButton.Text = "Fire";
                 
             char columnLetter = columnChoice.Name.Last<char>();
 
-            int returnValue = BubbleGrid["Bubble" + columnLetter.ToString() + "5"].DestroyBubble(BubbleGrid, columnLetter, 5, false, true);
+            int returnValue = Bubble.BubbleGrid["Bubble" + columnLetter.ToString() + "5"].DestroyBubble(false, true);
 
             switch (returnValue)
             {
                 case -1:
-                    this.EventText.Text = "You can't destroy a null\n bubble.";
+                    this.EventText.Text = "You can't destroy a\nnull bubble.";
                     break;
                 case 0:
-                    this.EventText.Text = "Block bubble can't be\n destroyed by Fire button.";
+                    this.EventText.Text = "Block bubble can't\nbe destroyed by Fire\nbutton.";
                     break;
                 case 1:
                     //ActivateEffect();
                     foreach (char letter in LetterList)
                     {
                         DropAll(letter, 4, false);
-                        BubbleGrid["Bubble" + letter.ToString() + "1"].SpawnBubble(BubbleGrid, letter, 1, false, "random");
+                        Bubble.BubbleGrid["Bubble" + letter.ToString() + "1"].SpawnBubble(false, "random");
                     }
+                    this.EventText.Text = "Successful fire.";
                     break;
                 default:
                     break;

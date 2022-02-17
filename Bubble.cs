@@ -11,92 +11,94 @@ namespace Gridemonium
 {
     public class Bubble
     {
-        public PictureBox VisualComponent { get; set; }
+        //The main container of bubble objects. Used for wayfinding the bubble grid and manipulating each bubble object.
+        public static Dictionary<string, Bubble> BubbleGrid { get; } = new Dictionary<string, Bubble>();        
         public string Name { get; set; }
         public Image Image { get; set; }
         public BubbleState State { get; set; }
-        public char Letter { get; set; }
-        public int Number { get; set; }
+
+        private char _letter;
+        private int _number;
+        private string _type;
+        private PictureBox VisualComponent;
 
         //Constructor when all Bubbles in grid are initialized. No new Bubble objects can be created or destroyed, only changed.
         public Bubble(char letter, int number, PictureBox box)
         {
             VisualComponent = box;
-            Letter = letter;
-            Number = number;
+            _letter = letter;
+            _number = number;
             Name = box.Name;
-            box.Image = null;
-            Image = box.Image;
-            State = BubbleState.Null;
+            ImageUpdate("null");
         }
 
         //Basic method for "spawning" a bubble. It actually checks if the picture box of the bubble object is null or not and then changes the image to something else.
-        public int SpawnBubble(Dictionary<string, Bubble> BubbleGrid, char col, int row, bool waitFlag, string type)
+        public int SpawnBubble(bool waitFlag, string type)
         {
-            Bubble bubble = BubbleGrid["Bubble" + col.ToString() + row.ToString()];
-            if (bubble.Image != null)
+            if (Image != null)
                 return -1;
-
-            ImageUpdate(bubble, SpawnType(type));
-            bubble.State = BubbleState.Active;
 
             if (waitFlag)
                 Thread.Sleep(1000);
 
-            return bubble.Number;
+            ImageUpdate(type);
+
+            return _number;
         }
 
         //Basic method for implementing a dropping mechanism when there is space beneath a bubble to "fall" to.
-        public int BubbleFall(Dictionary<string, Bubble> BubbleGrid, char col, int row, bool waitFlag)
+        public int BubbleFall(bool waitFlag)
         {
-            Bubble bubbleUp = BubbleGrid["Bubble" + col.ToString() + row.ToString()];
-            if (!BubbleGrid.ContainsKey("Bubble" + col.ToString() + (row + 1).ToString()))
+            if (!BubbleGrid.ContainsKey("Bubble" + _letter.ToString() + (_number + 1).ToString()))
                 return -1;
 
-            Bubble bubbleDown = BubbleGrid["Bubble" + col.ToString() + (row + 1).ToString()];
+            Bubble bubbleDown = BubbleGrid["Bubble" + _letter.ToString() + (_number + 1).ToString()];
             if (bubbleDown.Image != null)
                 return -1;
 
-            ImageUpdate(bubbleDown, bubbleUp.Image);
-            ImageUpdate(bubbleUp, null);
-            bubbleDown.State = BubbleState.Active;
-            bubbleUp.State = BubbleState.Null;
-
             if (waitFlag)
                 Thread.Sleep(1000);
 
-            return bubbleDown.Number;
+            bubbleDown.ImageUpdate(_type);
+            ImageUpdate("null");         
+
+            return bubbleDown._number;
         }
 
         //Updates the image of the bubble object as well as the picture box it is tied to in one method.
-        public void ImageUpdate(Bubble bubble, Image image)
+        public void ImageUpdate(string type)
         {
-            bubble.Image = image;
-            bubble.VisualComponent.Image = image;
+            Image image = SpawnType(type);
+            Image = image;
+            VisualComponent.Image = image;
+            if (_type != "null" || _type != null)
+                State = BubbleState.Active;
+            else
+                State = BubbleState.Null;
         }
 
-        public int DestroyBubble(Dictionary<string, Bubble> BubbleGrid, char col, int row, bool waitFlag, bool buttonPress)
+        //Sets a bubble to default values. Returns an int describing the result, whether an Action Button press was used or not.
+        public int DestroyBubble(bool waitFlag, bool buttonPress)
         {
             int bubbleType;
-            Bubble bubble = BubbleGrid["Bubble" + col.ToString() + row.ToString()];
-
-            if (bubble.Image == null)
-                bubbleType = -1;
-            else if (bubble.Image == Properties.Resources._null && buttonPress == true)
-                bubbleType = 0;
-            else
-            {
-                ImageUpdate(bubble, null);
-                bubble.State = BubbleState.Null;
-                bubbleType = 1;
-            }
 
             if (waitFlag)
                 Thread.Sleep(1000);
+
+            if (_type == "null")
+                bubbleType = -1;
+            else if (_type == "block" && buttonPress == true)
+                bubbleType = 0;
+            else
+            {
+                ImageUpdate("null");
+                bubbleType = 1;
+            }
 
             return bubbleType;
         }
 
+        //Enums for the status of a bubble.
         public enum BubbleState
         {
             Null,
@@ -105,7 +107,10 @@ namespace Gridemonium
 
         //Method that returns an image reference when spawning bubbles.
         private Image SpawnType(string type)
-        {           
+        {
+            if (type != "random")
+                _type = type;
+
             switch (type)
             {
                 case "random":                    
@@ -119,23 +124,35 @@ namespace Gridemonium
                     int rng = random.Next(1, 101);
 
                     if (rng > 0 && rng <= blankChance)
+                    {
+                        _type = "blank";
                         return Properties.Resources.blank;
+                    }
                     else if (rng > blankChance && rng <= blankChance + powerChance)
+                    {
+                        _type = "power";
                         return Properties.Resources.power;
+                    }
                     else if (rng > blankChance + powerChance && rng <= blankChance + powerChance + nullChance)
-                        return Properties.Resources._null;
+                    {
+                        _type = "block";
+                        return Properties.Resources.block;
+                    }
                     else if (rng > blankChance + powerChance + nullChance && rng <= blankChance + powerChance + nullChance + arrowChance)
                     {
                         rng = random.Next(1, 3);
                         switch (rng)
                         {
                             case 1:
+                                _type = "leftright";
                                 return Properties.Resources.leftright;
                             case 2:
+                                _type = "updown";
                                 return Properties.Resources.updown;
                             default:
+                                _type = "null";
                                 return null;
-                        }                        
+                        }
                     }
                     else if (rng > blankChance + powerChance + nullChance + arrowChance && rng <= blankChance + powerChance + nullChance + arrowChance + letterChance)
                     {
@@ -143,18 +160,25 @@ namespace Gridemonium
                         switch (rng)
                         {
                             case 1:
+                                _type = "a";
                                 return Properties.Resources.a;
                             case 2:
+                                _type = "b";
                                 return Properties.Resources.b;
                             case 3:
+                                _type = "c";
                                 return Properties.Resources.c;
                             case 4:
+                                _type = "d";
                                 return Properties.Resources.d;
                             case 5:
+                                _type = "e";
                                 return Properties.Resources.e;
                             case 6:
+                                _type = "f";
                                 return Properties.Resources.f;
                             default:
+                                _type = "null";
                                 return null;
                         }
                     }
@@ -166,10 +190,22 @@ namespace Gridemonium
                     return Properties.Resources.leftright;
                 case "updown":
                     return Properties.Resources.updown;
-                case "null":
-                    return Properties.Resources._null;
+                case "block":
+                    return Properties.Resources.block;
                 case "power":
                     return Properties.Resources.power;
+                case "a":
+                    return Properties.Resources.a;
+                case "b":
+                    return Properties.Resources.b;
+                case "c":
+                    return Properties.Resources.c;
+                case "d":
+                    return Properties.Resources.d;
+                case "e":
+                    return Properties.Resources.e;
+                case "f":
+                    return Properties.Resources.f;
                 default:
                     return null;
             }
