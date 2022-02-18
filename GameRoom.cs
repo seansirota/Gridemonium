@@ -16,25 +16,11 @@ namespace Gridemonium
         public List<PictureBox> BoxList = new List<PictureBox>();        
 
         //Useful for looping through each column without converting int to char.
-        private readonly char[] _letterList = { 'A', 'B', 'C', 'D', 'E', 'F', 'G' };
-
-        //Dictionary object containing radio buttons and their respective spawner labels by column.
-        private Dictionary<RadioButton, Label> _spawnerList { get; } = new Dictionary<RadioButton, Label>();
-
-        //Method that fills the _spawnerList dictionary with all 7 sets of radio buttons and labels.
-        private void MatchSpawner()
-        {
-            foreach (char letter in _letterList)
-            {
-                RadioButton radio = ColumnGroup.Controls.OfType<RadioButton>().FirstOrDefault(x => x.Name == "Radio" + letter.ToString());
-                Label spawner = Controls.OfType<Label>().FirstOrDefault(x => x.Name == "Percent" + letter.ToString());
-                _spawnerList.Add(radio, spawner);
-            }
-        }
+        public static readonly char[] _letterList = { 'A', 'B', 'C', 'D', 'E', 'F', 'G' };        
 
         //Instantiate all objects in GameRoom form and add all the picture boxes to a list so they can be added to the BubbleGrid after.
         public GameRoom()
-        {            
+        {
             InitializeComponent();
             MatchSpawner();
 
@@ -43,6 +29,17 @@ namespace Gridemonium
 
             foreach (PictureBox box in BufferBox.Controls)
                 BoxList.Add(box);
+        }
+
+        //Method that fills the _spawnerList list with all 7 spawner labels.
+        private void MatchSpawner()
+        {
+            foreach (char letter in _letterList)
+            {                
+                Label label = Controls.OfType<Label>().FirstOrDefault(x => x.Name == "Percent" + letter.ToString());
+                Spawner spawner = new Spawner(label);
+                Spawner._spawnerList.Add(spawner);
+            }
         }
 
         //Creates a new Bubble object for each coordinate on the grid and links Bubble with picture box of the same name.
@@ -111,6 +108,8 @@ namespace Gridemonium
                     EventText.Text = "Destroyed all bubbles\nwithin the three\nmiddle columns.";
                 else if (powerUp.Name == "SnipeUp")
                     EventText.Text = "Damaged all spawners\nby 5%.";
+                else
+                    EventText.Text = "Error, no power up\nselected.";
 
                 PowerUpButton.Text = "Apply";
                 ActionButton.Text = "Fire";

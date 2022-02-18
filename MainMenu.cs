@@ -21,18 +21,18 @@ namespace Gridemonium
         //All mode specific parameters are also set here before starting the game.
         private void NormalMode_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Hide();
             GameRoom game = new GameRoom();
             game.Show();
             game.AssignBubbles();
-            game.InitiateGrid();
+            game.InitiateGrid();            
         }
 
         private void Guide_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Hide();
             Guide guide = new Guide();
-            guide.Show();
+            guide.Show();            
         }
     }
 }

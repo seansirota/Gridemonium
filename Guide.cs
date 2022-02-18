@@ -19,9 +19,12 @@ namespace Gridemonium
 
         private void ReturnButton_Click(object sender, EventArgs e)
         {
-            this.Close();
-            MainMenu menu = new MainMenu();
-            menu.Show(this);            
+            Form form = Application.OpenForms["MainMenu"];
+            if (form != null)
+            {
+                this.Hide();
+                form.Show(this);
+            }            
         }
     }
 }
