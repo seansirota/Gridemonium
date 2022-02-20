@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bubble.cs" />
+    <Compile Include="Effect.cs" />
     <Compile Include="GameRoom.cs">
       <SubType>Form</SubType>
     </Compile>

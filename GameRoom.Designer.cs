@@ -635,7 +635,6 @@
             this.RadioA.TabIndex = 37;
             this.RadioA.TabStop = true;
             this.RadioA.UseVisualStyleBackColor = true;
-            this.RadioA.CheckedChanged += new System.EventHandler(this.RadioButtonChecked);
             // 
             // RadioB
             // 
@@ -646,7 +645,6 @@
             this.RadioB.TabIndex = 38;
             this.RadioB.TabStop = true;
             this.RadioB.UseVisualStyleBackColor = true;
-            this.RadioB.CheckedChanged += new System.EventHandler(this.RadioButtonChecked);
             // 
             // RadioC
             // 
@@ -657,7 +655,6 @@
             this.RadioC.TabIndex = 39;
             this.RadioC.TabStop = true;
             this.RadioC.UseVisualStyleBackColor = true;
-            this.RadioC.CheckedChanged += new System.EventHandler(this.RadioButtonChecked);
             // 
             // RadioD
             // 
@@ -668,7 +665,6 @@
             this.RadioD.TabIndex = 40;
             this.RadioD.TabStop = true;
             this.RadioD.UseVisualStyleBackColor = true;
-            this.RadioD.CheckedChanged += new System.EventHandler(this.RadioButtonChecked);
             // 
             // RadioE
             // 
@@ -679,7 +675,6 @@
             this.RadioE.TabIndex = 41;
             this.RadioE.TabStop = true;
             this.RadioE.UseVisualStyleBackColor = true;
-            this.RadioE.CheckedChanged += new System.EventHandler(this.RadioButtonChecked);
             // 
             // RadioF
             // 
@@ -690,7 +685,6 @@
             this.RadioF.TabIndex = 42;
             this.RadioF.TabStop = true;
             this.RadioF.UseVisualStyleBackColor = true;
-            this.RadioF.CheckedChanged += new System.EventHandler(this.RadioButtonChecked);
             // 
             // RadioG
             // 
@@ -701,7 +695,6 @@
             this.RadioG.TabIndex = 43;
             this.RadioG.TabStop = true;
             this.RadioG.UseVisualStyleBackColor = true;
-            this.RadioG.CheckedChanged += new System.EventHandler(this.RadioButtonChecked);
             // 
             // ActionButton
             // 

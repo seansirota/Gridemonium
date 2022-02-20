@@ -67,13 +67,13 @@ namespace Gridemonium
 
                 do
                 {
-                    spawnRow = Bubble.BubbleGrid["Bubble" + letter.ToString() + "1"].SpawnBubble(false, "blank");
+                    spawnRow = Bubble.BubbleGrid["Bubble" + letter.ToString() + "1"].SpawnBubble("blank");
 
                     if (spawnRow > -1)
                     {
                         fallRow = spawnRow;
                         do
-                            fallRow = Bubble.BubbleGrid["Bubble" + letter.ToString() + fallRow.ToString()].BubbleFall(false);
+                            fallRow = Bubble.BubbleGrid["Bubble" + letter.ToString() + fallRow.ToString()].BubbleFall();
                         while (fallRow > -1);
                     }
                 } while (spawnRow > -1);
@@ -81,13 +81,13 @@ namespace Gridemonium
         }
 
         //Method that drops all bubbles down starting from the bottom.
-        public void DropAll(char letter, int startRow, bool waitFlag)
+        public void DropAll(char letter, int startRow)
         {
-            int row = startRow;
+            int row = startRow;            
 
             while (row > -1)
             {
-                row = Bubble.BubbleGrid["Bubble" + letter.ToString() + row.ToString()].BubbleFall(waitFlag);
+                row = Bubble.BubbleGrid["Bubble" + letter.ToString() + row.ToString()].BubbleFall();
                 if (row > 0)
                     row -= 2;
             }               
@@ -102,6 +102,8 @@ namespace Gridemonium
                 RadioButton powerUp = PowerUpGroup.Controls.OfType<RadioButton>().FirstOrDefault(x => x.Checked);
 
                 //ActivatePowerEffect(powerUp.Name);
+                Bubble.RefreshGrid();
+
                 if (powerUp.Name == "TransformUp")
                     EventText.Text = "Transformed all block\nbubbles into random\nbubbles.";
                 else if (powerUp.Name == "FunnelUp")
@@ -127,8 +129,8 @@ namespace Gridemonium
                 else
                     ActionButton.Text = "Fire";
 
-                char columnLetter = columnChoice.Name.Last<char>();
-                int returnValue = Bubble.BubbleGrid["Bubble" + columnLetter.ToString() + "5"].DestroyBubble(false, true);
+                char columnLetter = columnChoice.Name.Last();
+                int returnValue = Bubble.BubbleGrid["Bubble" + columnLetter.ToString() + "5"].DestroyBubble(true);  
 
                 switch (returnValue)
                 {
@@ -139,11 +141,13 @@ namespace Gridemonium
                         this.EventText.Text = "Block bubble can't\nbe destroyed by Fire\nbutton.";
                         break;
                     case 1:
-                        //ActivateBubbleEffect();
+
+                        //CompleteAllEffects();                        
+                        
                         foreach (char letter in _letterList)
                         {
-                            DropAll(letter, 4, false);
-                            Bubble.BubbleGrid["Bubble" + letter.ToString() + "1"].SpawnBubble(false, "random");
+                            DropAll(letter, 4);
+                            Bubble.BubbleGrid["Bubble" + letter.ToString() + "1"].SpawnBubble("random");
                         }
                         this.EventText.Text = "Successful fire.";
                         break;
@@ -151,11 +155,6 @@ namespace Gridemonium
                         break;
                 }
             }            
-        }
-
-        private void RadioButtonChecked(object sender, EventArgs e)
-        {
-
         }
 
         //Event that updates button texts when Power Up button is clicked.
