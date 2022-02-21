@@ -13,7 +13,7 @@ namespace Gridemonium
         private Label _percentLabel;
 
         //List containing all spawner labels.
-        public static List<Spawner> _spawnerList { get; } = new List<Spawner>();
+        public static List<Spawner> SpawnerList { get; } = new List<Spawner>();
 
         public Spawner(Label label)
         {
@@ -25,10 +25,12 @@ namespace Gridemonium
         //Method that damages a spawner by a given percentage.
         public static void DamageSpawner(char letter, int percent)
         {
-            int columnNumber = Array.FindIndex(GameRoom._letterList, x => x == letter);
-            Spawner spawner = _spawnerList[columnNumber];
+            int columnNumber = Array.FindIndex(GameRoom.LetterList, x => x == letter);
+            Spawner spawner = SpawnerList[columnNumber];
 
             spawner._value -= percent;
+            if (spawner._value < 0)
+                spawner._value = 0;
             spawner._percentLabel.Text = spawner._value.ToString() + '%'.ToString();
         }
     }

@@ -16,7 +16,7 @@ namespace Gridemonium
         public List<PictureBox> BoxList = new List<PictureBox>();        
 
         //Useful for looping through each column without converting int to char.
-        public static readonly char[] _letterList = { 'A', 'B', 'C', 'D', 'E', 'F', 'G' };        
+        public static readonly char[] LetterList = { 'A', 'B', 'C', 'D', 'E', 'F', 'G' };        
 
         //Instantiate all objects in GameRoom form and add all the picture boxes to a list so they can be added to the BubbleGrid after.
         public GameRoom()
@@ -34,23 +34,23 @@ namespace Gridemonium
         //Method that fills the _spawnerList list with all 7 spawner labels.
         private void MatchSpawner()
         {
-            foreach (char letter in _letterList)
+            foreach (char letter in LetterList)
             {                
-                Label label = Controls.OfType<Label>().FirstOrDefault(x => x.Name == "Percent" + letter.ToString());
+                Label label = Controls.OfType<Label>().FirstOrDefault(x => x.Name == "Percent" + letter.ToString());            
                 Spawner spawner = new Spawner(label);
-                Spawner._spawnerList.Add(spawner);
+                Spawner.SpawnerList.Add(spawner);
             }
         }
 
         //Creates a new Bubble object for each coordinate on the grid and links Bubble with picture box of the same name.
         public void AssignBubbles()
         {            
-            for (int i = 0; i < _letterList.Length; i++)
+            for (int i = 0; i < LetterList.Length; i++)
             {
                 for (int j = 0; j < 6; j++)
                 {
-                    PictureBox box = BoxList.Find(x => x.Name == "Bubble" + _letterList[i].ToString() + j.ToString());
-                    Bubble bubble = new Bubble(_letterList[i], j, box);
+                    PictureBox box = BoxList.Find(x => x.Name == "Bubble" + LetterList[i].ToString() + j.ToString());
+                    Bubble bubble = new Bubble(LetterList[i], j, box);
                     Bubble.BubbleGrid.Add(bubble.Name, bubble);
                 }
             }
@@ -60,7 +60,7 @@ namespace Gridemonium
         //repeat until every space in a column is filled with bubbles. Then, it moves on to the next column until each column is filled.
         public void InitiateGrid()
         {
-            foreach (char letter in _letterList)
+            foreach (char letter in LetterList)
             {
                 int spawnRow;
                 int fallRow;
@@ -77,7 +77,23 @@ namespace Gridemonium
                         while (fallRow > -1);
                     }
                 } while (spawnRow > -1);
-            }
+            }            
+        }
+
+        //Method that instantiates all counters in the game room including the blasts, score, and power up counts.
+        public void SetUpCounters()
+        {
+            ItemCounter blasts = new ItemCounter(Controls.OfType<Label>().FirstOrDefault(x => x.Name == "Ammo") ,"Ammo", 100);
+            ItemCounter score = new ItemCounter(Controls.OfType<Label>().FirstOrDefault(x => x.Name == "Score"), "Score", 0);
+            ItemCounter transforms = new ItemCounter(PowerUpGroup.Controls.OfType<RadioButton>().FirstOrDefault(x => x.Name == "TransformUp"), "Transform", 0);
+            ItemCounter funnels = new ItemCounter(PowerUpGroup.Controls.OfType<RadioButton>().FirstOrDefault(x => x.Name == "FunnelUp"), "Funnel", 0);
+            ItemCounter snipes = new ItemCounter(PowerUpGroup.Controls.OfType<RadioButton>().FirstOrDefault(x => x.Name == "SnipeUp"), "Snipe", 0);
+
+            Bubble.CounterList.Add(blasts);
+            Bubble.CounterList.Add(score);
+            Bubble.CounterList.Add(transforms);
+            Bubble.CounterList.Add(funnels);
+            Bubble.CounterList.Add(snipes);
         }
 
         //Method that drops all bubbles down starting from the bottom.
@@ -90,7 +106,7 @@ namespace Gridemonium
                 row = Bubble.BubbleGrid["Bubble" + letter.ToString() + row.ToString()].BubbleFall();
                 if (row > 0)
                     row -= 2;
-            }               
+            }
         }
 
         //Action button click event. Handles destroying bottommost bubble of column targetted, activates effect of destroyed bubble, drops all bubbles down,
@@ -102,16 +118,23 @@ namespace Gridemonium
                 RadioButton powerUp = PowerUpGroup.Controls.OfType<RadioButton>().FirstOrDefault(x => x.Checked);
 
                 //ActivatePowerEffect(powerUp.Name);
-                Bubble.RefreshGrid();
+                Bubble.RefreshGrid(500);
 
-                if (powerUp.Name == "TransformUp")
-                    EventText.Text = "Transformed all block\nbubbles into random\nbubbles.";
-                else if (powerUp.Name == "FunnelUp")
-                    EventText.Text = "Destroyed all bubbles\nwithin the three\nmiddle columns.";
-                else if (powerUp.Name == "SnipeUp")
-                    EventText.Text = "Damaged all spawners\nby 5%.";
-                else
-                    EventText.Text = "Error, no power up\nselected.";
+                switch (powerUp.Name)
+                {
+                    case "TransformUp":
+                        EventText.Text = "Transformed all block\nbubbles into random\nbubbles.";
+                        break;
+                    case "FunnelUp":
+                        EventText.Text = "Destroyed all bubbles\nwithin the three\nmiddle columns.";
+                        break;
+                    case "SnipeUp":
+                        EventText.Text = "Damaged all spawners\nby 5%.";
+                        break;
+                    default:
+                        EventText.Text = "Error, no power up\nselected.";
+                        break;
+                }
 
                 PowerUpButton.Text = "Apply";
                 ActionButton.Text = "Fire";
@@ -144,11 +167,20 @@ namespace Gridemonium
 
                         //CompleteAllEffects();                        
                         
-                        foreach (char letter in _letterList)
+                        foreach (char letter in LetterList)
                         {
+                            Bubble checkBubble = Bubble.BubbleGrid["Bubble" + letter.ToString() + "1"];
+                            returnValue = 0;
                             DropAll(letter, 4);
-                            Bubble.BubbleGrid["Bubble" + letter.ToString() + "1"].SpawnBubble("random");
+
+                            while (returnValue != -1)
+                            {                                
+                                returnValue = checkBubble.SpawnBubble("random");
+                                DropAll(letter, 4);                                
+                            }                            
+
                         }
+                        
                         this.EventText.Text = "Successful fire.";
                         break;
                     default:

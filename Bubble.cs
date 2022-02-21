@@ -13,7 +13,8 @@ namespace Gridemonium
     {
         //The main container of bubble objects. Used for wayfinding the bubble grid and manipulating each bubble object.
         public static Dictionary<string, Bubble> BubbleGrid { get; } = new Dictionary<string, Bubble>();        
-        public static List<Bubble> WaitList { get; set; }
+        public static List<Bubble> WaitList { get; set; } = new List<Bubble>();
+        public static List<ItemCounter> CounterList { get; set; } = new List<ItemCounter>();
         public string Name { get; set; }
         public char Letter { get; set; }
         public int Number { get; set; }
@@ -100,7 +101,7 @@ namespace Gridemonium
             {
                 BubbleEffect.ChooseEffect(this);
                 ImageUpdate("null");
-                RefreshGrid();
+                RefreshGrid(500);
                 bubbleType = 1;
             }                       
 
@@ -117,12 +118,12 @@ namespace Gridemonium
         }
 
         //Redraws all bubbles after a major action occurs.
-        public static void RefreshGrid()
+        public static void RefreshGrid(int ticks)
         {
             foreach (KeyValuePair<string, Bubble> entry in BubbleGrid)
                 entry.Value._visualComponent.Refresh();
 
-            Thread.Sleep(100);
+            Thread.Sleep(ticks);
         }
 
         //Enums for the status of a bubble.

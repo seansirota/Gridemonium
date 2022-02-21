@@ -25,7 +25,8 @@ namespace Gridemonium
             GameRoom game = new GameRoom();
             game.Show();
             game.AssignBubbles();
-            game.InitiateGrid();            
+            game.InitiateGrid();
+            game.SetUpCounters();
         }
 
         private void Guide_Click(object sender, EventArgs e)
