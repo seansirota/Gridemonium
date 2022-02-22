@@ -22,6 +22,7 @@ namespace Gridemonium
             _counterLabel.Text = Name + ": " + _value;
         }
 
+        //Used to update any of the item counters with a single amount parameter.
         public void UpdateCounter(int changeAmount)
         {
             _value += changeAmount;

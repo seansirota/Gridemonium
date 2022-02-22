@@ -22,7 +22,7 @@ namespace Gridemonium
         public Effect BubbleEffect { get; set; }
 
         private BubbleState _state { get; set; }        
-        private string _type;
+        private BubbleType _type;
         private int _waitListPlace;
         private PictureBox _visualComponent;
 
@@ -34,7 +34,7 @@ namespace Gridemonium
             Number = number;
             Name = box.Name;
             BubbleEffect = new Effect();
-            ImageUpdate("null");
+            ImageUpdate("_");
         }        
 
         //Basic method for "spawning" a bubble. It actually checks if the picture box of the bubble object is null or not and then changes the image to something else.
@@ -58,8 +58,8 @@ namespace Gridemonium
             if (bubbleDown.Image != null)
                 return -1;
 
-            bubbleDown.ImageUpdate(_type);
-            ImageUpdate("null");         
+            bubbleDown.ImageUpdate(_type.ToString());
+            ImageUpdate("_");         
 
             return bubbleDown.Number;
         }
@@ -72,9 +72,9 @@ namespace Gridemonium
             Image = image;
             _visualComponent.Image = image;
 
-            if (_type != "null" || _type != null || _type != "destroyed")
+            if (_type != BubbleType._ || _type != BubbleType.Destroyed)
                 _state = BubbleState.Active;
-            else if (_type == "destroyed")
+            else if (_type == BubbleType.Destroyed)
             {
                 _state = BubbleState.Destroyed;
                 WaitList.Add(this);
@@ -93,14 +93,14 @@ namespace Gridemonium
         {
             int bubbleType;
 
-            if (_type == "null")
+            if (_type == BubbleType._)
                 bubbleType = -1;
-            else if (_type == "block" && buttonPress == true)
+            else if (_type == BubbleType.Block && buttonPress == true)
                 bubbleType = 0;
             else
             {
                 BubbleEffect.ChooseEffect(this);
-                ImageUpdate("null");
+                ImageUpdate("_");
                 RefreshGrid(500);
                 bubbleType = 1;
             }                       
@@ -124,25 +124,17 @@ namespace Gridemonium
                 entry.Value._visualComponent.Refresh();
 
             Thread.Sleep(ticks);
-        }
-
-        //Enums for the status of a bubble.
-        public enum BubbleState
-        {
-            Active,
-            Destroyed,
-            Empty
-        }
+        }        
 
         //Method that returns an image reference when spawning bubbles.
         private Image SpawnType(string type)
         {
-            if (type != "random")
-                _type = type;
+            if (type != "Random")
+                Enum.TryParse(type, out _type);
 
             switch (type)
             {
-                case "random":                    
+                case "Random":                    
                     int letterChance = 18;
                     int arrowChance = 10;
                     int blockChance = 12;
@@ -154,17 +146,17 @@ namespace Gridemonium
 
                     if (rng > 0 && rng <= blankChance)
                     {
-                        _type = "blank";
+                        _type = BubbleType.Blank;
                         return Properties.Resources.blank;
                     }
                     else if (rng > blankChance && rng <= blankChance + powerChance)
                     {
-                        _type = "power";
+                        _type = BubbleType.Power;
                         return Properties.Resources.power;
                     }
                     else if (rng > blankChance + powerChance && rng <= blankChance + powerChance + blockChance)
                     {
-                        _type = "block";
+                        _type = BubbleType.Block;
                         return Properties.Resources.block;
                     }
                     else if (rng > blankChance + powerChance + blockChance && rng <= blankChance + powerChance + blockChance + arrowChance)
@@ -173,13 +165,13 @@ namespace Gridemonium
                         switch (rng)
                         {
                             case 1:
-                                _type = "leftright";
+                                _type = BubbleType.LeftRight;
                                 return Properties.Resources.leftright;
                             case 2:
-                                _type = "updown";
+                                _type = BubbleType.UpDown;
                                 return Properties.Resources.updown;
                             default:
-                                _type = "null";
+                                _type = BubbleType._;
                                 return null;
                         }
                     }
@@ -189,55 +181,81 @@ namespace Gridemonium
                         switch (rng)
                         {
                             case 1:
-                                _type = "a";
+                                _type = BubbleType.A;
                                 return Properties.Resources.a;
                             case 2:
-                                _type = "b";
+                                _type = BubbleType.B;
                                 return Properties.Resources.b;
                             case 3:
-                                _type = "c";
+                                _type = BubbleType.C;
                                 return Properties.Resources.c;
                             case 4:
-                                _type = "d";
+                                _type = BubbleType.D;
                                 return Properties.Resources.d;
                             case 5:
-                                _type = "e";
+                                _type = BubbleType.E;
                                 return Properties.Resources.e;
                             case 6:
-                                _type = "f";
+                                _type = BubbleType.F;
                                 return Properties.Resources.f;
                             default:
-                                _type = "null";
+                                _type = BubbleType._;
                                 return null;
                         }
                     }
                     else
                         return null;
-                case "blank":
+                case "Blank":
                     return Properties.Resources.blank;
-                case "leftright":
+                case "LeftRight":
                     return Properties.Resources.leftright;
-                case "updown":
+                case "UpDown":
                     return Properties.Resources.updown;
-                case "block":
+                case "Block":
                     return Properties.Resources.block;
-                case "power":
+                case "Power":
                     return Properties.Resources.power;
-                case "a":
+                case "A":
                     return Properties.Resources.a;
-                case "b":
+                case "B":
                     return Properties.Resources.b;
-                case "c":
+                case "C":
                     return Properties.Resources.c;
-                case "d":
+                case "D":
                     return Properties.Resources.d;
-                case "e":
+                case "E":
                     return Properties.Resources.e;
-                case "f":
+                case "F":
                     return Properties.Resources.f;
                 default:
                     return null;
             }
+        }
+
+        //Enums for type of bubble.
+        public enum BubbleType
+        {
+            Blank,
+            Block,
+            Power,
+            LeftRight,
+            UpDown,
+            A,
+            B,
+            C,
+            D,
+            E,
+            F,
+            _,
+            Destroyed
+        }
+
+        //Enums for the status of a bubble.
+        public enum BubbleState
+        {
+            Active,
+            Destroyed,
+            Empty
         }
     }
 }

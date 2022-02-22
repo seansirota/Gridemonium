@@ -13,7 +13,7 @@ namespace Gridemonium
     public partial class GameRoom : Form
     {
         //Initially used to contain every picture box control.
-        public List<PictureBox> BoxList = new List<PictureBox>();        
+        private List<PictureBox> _boxList = new List<PictureBox>();        
 
         //Useful for looping through each column without converting int to char.
         public static readonly char[] LetterList = { 'A', 'B', 'C', 'D', 'E', 'F', 'G' };        
@@ -25,10 +25,10 @@ namespace Gridemonium
             MatchSpawner();
 
             foreach (PictureBox box in MainBox.Controls)
-                BoxList.Add(box);
+                _boxList.Add(box);
 
             foreach (PictureBox box in BufferBox.Controls)
-                BoxList.Add(box);
+                _boxList.Add(box);
         }
 
         //Method that fills the _spawnerList list with all 7 spawner labels.
@@ -49,7 +49,7 @@ namespace Gridemonium
             {
                 for (int j = 0; j < 6; j++)
                 {
-                    PictureBox box = BoxList.Find(x => x.Name == "Bubble" + LetterList[i].ToString() + j.ToString());
+                    PictureBox box = _boxList.Find(x => x.Name == "Bubble" + LetterList[i].ToString() + j.ToString());
                     Bubble bubble = new Bubble(LetterList[i], j, box);
                     Bubble.BubbleGrid.Add(bubble.Name, bubble);
                 }
@@ -67,7 +67,7 @@ namespace Gridemonium
 
                 do
                 {
-                    spawnRow = Bubble.BubbleGrid["Bubble" + letter.ToString() + "1"].SpawnBubble("blank");
+                    spawnRow = Bubble.BubbleGrid["Bubble" + letter.ToString() + "1"].SpawnBubble("Blank");
 
                     if (spawnRow > -1)
                     {
@@ -175,7 +175,7 @@ namespace Gridemonium
 
                             while (returnValue != -1)
                             {                                
-                                returnValue = checkBubble.SpawnBubble("random");
+                                returnValue = checkBubble.SpawnBubble("Random");
                                 DropAll(letter, 4);                                
                             }                            
 

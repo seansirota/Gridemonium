@@ -15,6 +15,7 @@ namespace Gridemonium
         //List containing all spawner labels.
         public static List<Spawner> SpawnerList { get; } = new List<Spawner>();
 
+        //Constructor for Spawner. No new spawner objects can be created after initialization of the game room.
         public Spawner(Label label)
         {
             _value = 100;

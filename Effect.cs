@@ -10,28 +10,28 @@ namespace Gridemonium
     public class Effect
     {
         private int _score;
-        public string EffectType { get; set; }        
+        public Bubble.BubbleType EffectType { get; set; }        
 
         //Hub method that takes access a bubble object and uses its effect type to activate a method associated with it.
         public void ChooseEffect(Bubble bubble)
         {
             switch (EffectType)
             {
-                case "leftright":
+                case Bubble.BubbleType.LeftRight:
                     ActivateLeftRight(bubble.Number);
                     break;
-                case "updown":
+                case Bubble.BubbleType.UpDown:
                     ActivateUpDown(bubble.Letter);
                     break;
-                case "power":
+                case Bubble.BubbleType.Power:
                     ActivatePower();
                     break;
-                case "a":
-                case "b":
-                case "c":
-                case "d":
-                case "e":
-                case "f":
+                case Bubble.BubbleType.A:
+                case Bubble.BubbleType.B:
+                case Bubble.BubbleType.C:
+                case Bubble.BubbleType.D:
+                case Bubble.BubbleType.E:
+                case Bubble.BubbleType.F:
                     Random random = new Random();
                     int randomEffect = random.Next(1, 7);
                     switch (randomEffect)
@@ -58,8 +58,8 @@ namespace Gridemonium
                             break;
                     }
                     break;
-                case "blank":
-                case "block":
+                case Bubble.BubbleType.Blank:
+                case Bubble.BubbleType.Block:
                     break;
             }
         }
@@ -67,13 +67,13 @@ namespace Gridemonium
         private void ActivateLeftRight(int row)
         {
             foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.Number == row))
-                entry.Value.ImageUpdate("destroyed");
+                entry.Value.ImageUpdate("Destroyed");
         }
 
         private void ActivateUpDown(char col)
         {
             foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.Letter == col))
-                entry.Value.ImageUpdate("destroyed");
+                entry.Value.ImageUpdate("Destroyed");
         }
 
         private void ActivatePower()
@@ -100,9 +100,9 @@ namespace Gridemonium
         private void Activate1()
         {
             foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.Number == 3))
-                entry.Value.ImageUpdate("destroyed");
+                entry.Value.ImageUpdate("Destroyed");
             foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.Letter == 'D'))
-                entry.Value.ImageUpdate("destroyed");
+                entry.Value.ImageUpdate("Destroyed");
         }
 
         private void Activate2()
