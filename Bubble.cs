@@ -21,7 +21,7 @@ namespace Gridemonium
         public Image Image { get; set; }
         public Effect BubbleEffect { get; set; }
 
-        private BubbleState _state { get; set; }        
+        private BubbleState _state;
         private BubbleType _type;
         private int _waitListPlace;
         private PictureBox _visualComponent;
