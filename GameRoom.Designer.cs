@@ -629,7 +629,7 @@
             // 
             this.RadioA.AutoSize = true;
             this.RadioA.Checked = true;
-            this.RadioA.Location = new System.Drawing.Point(6, 19);
+            this.RadioA.Location = new System.Drawing.Point(20, 19);
             this.RadioA.Name = "RadioA";
             this.RadioA.Size = new System.Drawing.Size(14, 13);
             this.RadioA.TabIndex = 37;
@@ -639,7 +639,7 @@
             // RadioB
             // 
             this.RadioB.AutoSize = true;
-            this.RadioB.Location = new System.Drawing.Point(45, 19);
+            this.RadioB.Location = new System.Drawing.Point(60, 19);
             this.RadioB.Name = "RadioB";
             this.RadioB.Size = new System.Drawing.Size(14, 13);
             this.RadioB.TabIndex = 38;
@@ -649,7 +649,7 @@
             // RadioC
             // 
             this.RadioC.AutoSize = true;
-            this.RadioC.Location = new System.Drawing.Point(84, 19);
+            this.RadioC.Location = new System.Drawing.Point(100, 19);
             this.RadioC.Name = "RadioC";
             this.RadioC.Size = new System.Drawing.Size(14, 13);
             this.RadioC.TabIndex = 39;
@@ -659,7 +659,7 @@
             // RadioD
             // 
             this.RadioD.AutoSize = true;
-            this.RadioD.Location = new System.Drawing.Point(126, 19);
+            this.RadioD.Location = new System.Drawing.Point(140, 19);
             this.RadioD.Name = "RadioD";
             this.RadioD.Size = new System.Drawing.Size(14, 13);
             this.RadioD.TabIndex = 40;
@@ -669,7 +669,7 @@
             // RadioE
             // 
             this.RadioE.AutoSize = true;
-            this.RadioE.Location = new System.Drawing.Point(164, 19);
+            this.RadioE.Location = new System.Drawing.Point(180, 19);
             this.RadioE.Name = "RadioE";
             this.RadioE.Size = new System.Drawing.Size(14, 13);
             this.RadioE.TabIndex = 41;
@@ -679,7 +679,7 @@
             // RadioF
             // 
             this.RadioF.AutoSize = true;
-            this.RadioF.Location = new System.Drawing.Point(204, 19);
+            this.RadioF.Location = new System.Drawing.Point(220, 19);
             this.RadioF.Name = "RadioF";
             this.RadioF.Size = new System.Drawing.Size(14, 13);
             this.RadioF.TabIndex = 42;
@@ -689,7 +689,7 @@
             // RadioG
             // 
             this.RadioG.AutoSize = true;
-            this.RadioG.Location = new System.Drawing.Point(244, 19);
+            this.RadioG.Location = new System.Drawing.Point(260, 19);
             this.RadioG.Name = "RadioG";
             this.RadioG.Size = new System.Drawing.Size(14, 13);
             this.RadioG.TabIndex = 43;
@@ -841,9 +841,8 @@
             this.EventText.AutoSize = true;
             this.EventText.Location = new System.Drawing.Point(228, 393);
             this.EventText.Name = "EventText";
-            this.EventText.Size = new System.Drawing.Size(36, 13);
+            this.EventText.Size = new System.Drawing.Size(0, 13);
             this.EventText.TabIndex = 61;
-            this.EventText.Text = "None.";
             // 
             // PowerUpGroup
             // 
@@ -863,14 +862,14 @@
             // 
             this.ColumnGroup.Controls.Add(this.RadioA);
             this.ColumnGroup.Controls.Add(this.RadioB);
-            this.ColumnGroup.Controls.Add(this.RadioC);
-            this.ColumnGroup.Controls.Add(this.RadioD);
-            this.ColumnGroup.Controls.Add(this.RadioE);
-            this.ColumnGroup.Controls.Add(this.RadioF);
             this.ColumnGroup.Controls.Add(this.RadioG);
-            this.ColumnGroup.Location = new System.Drawing.Point(158, 347);
+            this.ColumnGroup.Controls.Add(this.RadioF);
+            this.ColumnGroup.Controls.Add(this.RadioC);
+            this.ColumnGroup.Controls.Add(this.RadioE);
+            this.ColumnGroup.Controls.Add(this.RadioD);
+            this.ColumnGroup.Location = new System.Drawing.Point(145, 346);
             this.ColumnGroup.Name = "ColumnGroup";
-            this.ColumnGroup.Size = new System.Drawing.Size(267, 40);
+            this.ColumnGroup.Size = new System.Drawing.Size(286, 40);
             this.ColumnGroup.TabIndex = 63;
             this.ColumnGroup.TabStop = false;
             this.ColumnGroup.Text = "Choose Column";

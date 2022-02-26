@@ -27,6 +27,7 @@ namespace Gridemonium
             game.AssignBubbles();
             game.InitiateGrid();
             game.SetUpCounters();
+            game.SetUpLetterBubbles();
         }
 
         private void Guide_Click(object sender, EventArgs e)

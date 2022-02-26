@@ -42,6 +42,48 @@ namespace Gridemonium
             }
         }
 
+        //Method that assigns randomly a numbered effect to each letter bubble type.
+        public void SetUpLetterBubbles()
+        {
+            int rng;
+            Bubble.BubbleType value;
+            Random random = new Random();
+            List<int> numberList = new List<int> { 1, 2, 3, 4, 5, 6 };
+
+            for (int i = 0; i < 6; i++)
+            {
+                rng = numberList[random.Next(0, numberList.Count)];
+
+                switch (rng)
+                {
+                    case 1:
+                        value = Bubble.BubbleType.A;                        
+                        break;
+                    case 2:
+                        value = Bubble.BubbleType.B;
+                        break;
+                    case 3:
+                        value = Bubble.BubbleType.C;
+                        break;
+                    case 4:
+                        value = Bubble.BubbleType.D;
+                        break;
+                    case 5:
+                        value = Bubble.BubbleType.E;
+                        break;
+                    case 6:
+                        value = Bubble.BubbleType.F;
+                        break;
+                    default:
+                        value = Bubble.BubbleType._;
+                        break;
+                }
+
+                Effect.LetterBubbleMatch.Add(i, value);
+                numberList.Remove(rng);
+            }
+        }
+
         //Creates a new Bubble object for each coordinate on the grid and links Bubble with picture box of the same name.
         public void AssignBubbles()
         {            

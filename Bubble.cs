@@ -13,16 +13,16 @@ namespace Gridemonium
     {
         //The main container of bubble objects. Used for wayfinding the bubble grid and manipulating each bubble object.
         public static Dictionary<string, Bubble> BubbleGrid { get; } = new Dictionary<string, Bubble>();        
-        public static List<Bubble> WaitList { get; set; } = new List<Bubble>();
-        public static List<ItemCounter> CounterList { get; set; } = new List<ItemCounter>();
+        public static List<Bubble> WaitList { get; } = new List<Bubble>();
+        public static List<ItemCounter> CounterList { get; } = new List<ItemCounter>();
         public string Name { get; set; }
         public char Letter { get; set; }
         public int Number { get; set; }
-        public Image Image { get; set; }
+        public Bitmap Image { get; set; }
         public Effect BubbleEffect { get; set; }
+        public BubbleType Type;
 
-        private BubbleState _state;
-        private BubbleType _type;
+        private BubbleState _state;        
         private int _waitListPlace;
         private PictureBox _visualComponent;
 
@@ -58,7 +58,7 @@ namespace Gridemonium
             if (bubbleDown.Image != null)
                 return -1;
 
-            bubbleDown.ImageUpdate(_type.ToString());
+            bubbleDown.ImageUpdate(Type.ToString());
             ImageUpdate("_");         
 
             return bubbleDown.Number;
@@ -67,14 +67,14 @@ namespace Gridemonium
         //Updates the image of the bubble object as well as the picture box it is tied to in one method.
         public void ImageUpdate(string type)
         {
-            Image image = SpawnType(type);
-            BubbleEffect.EffectType = _type;
+            Bitmap image = SpawnType(type);
+            BubbleEffect.EffectType = Type;
             Image = image;
             _visualComponent.Image = image;
 
-            if (_type != BubbleType._ || _type != BubbleType.Destroyed)
+            if (Type != BubbleType._ || Type != BubbleType.Destroyed)
                 _state = BubbleState.Active;
-            else if (_type == BubbleType.Destroyed)
+            else if (Type == BubbleType.Destroyed && _state == BubbleState.Active)
             {
                 _state = BubbleState.Destroyed;
                 WaitList.Add(this);
@@ -93,9 +93,9 @@ namespace Gridemonium
         {
             int bubbleType;
 
-            if (_type == BubbleType._)
+            if (Type == BubbleType._)
                 bubbleType = -1;
-            else if (_type == BubbleType.Block && buttonPress == true)
+            else if (Type == BubbleType.Block && buttonPress == true)
                 bubbleType = 0;
             else
             {
@@ -127,10 +127,10 @@ namespace Gridemonium
         }        
 
         //Method that returns an image reference when spawning bubbles.
-        private Image SpawnType(string type)
+        private Bitmap SpawnType(string type)
         {
             if (type != "Random")
-                Enum.TryParse(type, out _type);
+                Enum.TryParse(type, out Type);
 
             switch (type)
             {
@@ -146,17 +146,17 @@ namespace Gridemonium
 
                     if (rng > 0 && rng <= blankChance)
                     {
-                        _type = BubbleType.Blank;
+                        Type = BubbleType.Blank;
                         return Properties.Resources.blank;
                     }
                     else if (rng > blankChance && rng <= blankChance + powerChance)
                     {
-                        _type = BubbleType.Power;
+                        Type = BubbleType.Power;
                         return Properties.Resources.power;
                     }
                     else if (rng > blankChance + powerChance && rng <= blankChance + powerChance + blockChance)
                     {
-                        _type = BubbleType.Block;
+                        Type = BubbleType.Block;
                         return Properties.Resources.block;
                     }
                     else if (rng > blankChance + powerChance + blockChance && rng <= blankChance + powerChance + blockChance + arrowChance)
@@ -165,13 +165,13 @@ namespace Gridemonium
                         switch (rng)
                         {
                             case 1:
-                                _type = BubbleType.LeftRight;
+                                Type = BubbleType.LeftRight;
                                 return Properties.Resources.leftright;
                             case 2:
-                                _type = BubbleType.UpDown;
+                                Type = BubbleType.UpDown;
                                 return Properties.Resources.updown;
                             default:
-                                _type = BubbleType._;
+                                Type = BubbleType._;
                                 return null;
                         }
                     }
@@ -181,25 +181,25 @@ namespace Gridemonium
                         switch (rng)
                         {
                             case 1:
-                                _type = BubbleType.A;
+                                Type = BubbleType.A;
                                 return Properties.Resources.a;
                             case 2:
-                                _type = BubbleType.B;
+                                Type = BubbleType.B;
                                 return Properties.Resources.b;
                             case 3:
-                                _type = BubbleType.C;
+                                Type = BubbleType.C;
                                 return Properties.Resources.c;
                             case 4:
-                                _type = BubbleType.D;
+                                Type = BubbleType.D;
                                 return Properties.Resources.d;
                             case 5:
-                                _type = BubbleType.E;
+                                Type = BubbleType.E;
                                 return Properties.Resources.e;
                             case 6:
-                                _type = BubbleType.F;
+                                Type = BubbleType.F;
                                 return Properties.Resources.f;
                             default:
-                                _type = BubbleType._;
+                                Type = BubbleType._;
                                 return null;
                         }
                     }

@@ -26,13 +26,37 @@ namespace Gridemonium
         //Method that damages a spawner by a given percentage.
         public static void DamageSpawner(char letter, int percent)
         {
-            int columnNumber = Array.FindIndex(GameRoom.LetterList, x => x == letter);
+            //int columnNumber = Array.FindIndex(GameRoom.LetterList, x => x == letter);
+            int columnNumber = letter - 64;
             Spawner spawner = SpawnerList[columnNumber];
 
             spawner._value -= percent;
             if (spawner._value < 0)
                 spawner._value = 0;
             spawner._percentLabel.Text = spawner._value.ToString() + '%'.ToString();
+        }
+
+        public bool CheckPercentValue()
+        {
+            if (_value == 0)
+                return false;
+            else
+                return true;
+        }
+
+        public static bool AllSpawnersDestroyed()
+        {
+            int totalPercent = 0;
+
+            foreach (Spawner spawner in SpawnerList)
+            {
+                totalPercent += spawner._value;
+            }
+
+            if (totalPercent != 0)
+                return false;
+            else
+                return true;
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Gridemonium
         private Control _counterLabel;
         private int _value;
 
+        //ItemCounter class constructor. Five are created for each of the counting labels.
         public ItemCounter(Control control, string name, int amount)
         {
             Name = name;
