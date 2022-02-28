@@ -159,23 +159,36 @@ namespace Gridemonium
             {
                 RadioButton powerUp = PowerUpGroup.Controls.OfType<RadioButton>().FirstOrDefault(x => x.Checked);
 
-                //ActivatePowerEffect(powerUp.Name);
-                Bubble.RefreshGrid(500);
-
                 switch (powerUp.Name)
                 {
                     case "TransformUp":
-                        EventText.Text = "Transformed all block\nbubbles into random\nbubbles.";
+                        EventText.Text = Effect.PowerTransform();
                         break;
-                    case "FunnelUp":
-                        EventText.Text = "Destroyed all bubbles\nwithin the three\nmiddle columns.";
+                    case "FunnelUp":                        
+                        EventText.Text = Effect.PowerFunnel();
                         break;
-                    case "SnipeUp":
-                        EventText.Text = "Damaged all spawners\nby 5%.";
+                    case "SnipeUp":                        
+                        EventText.Text = Effect.PowerSnipe();
                         break;
                     default:
                         EventText.Text = "Error, no power up\nselected.";
                         break;
+                }
+
+                Bubble.RefreshGrid(500);
+
+                foreach (char letter in LetterList)
+                {
+                    Bubble checkBubble = Bubble.BubbleGrid["Bubble" + letter.ToString() + "1"];
+                    int returnValue = 0;
+                    DropAll(letter, 4);
+
+                    while (returnValue != -1)
+                    {
+                        returnValue = checkBubble.SpawnBubble("Random");
+                        DropAll(letter, 4);
+                    }
+
                 }
 
                 PowerUpButton.Text = "Apply";

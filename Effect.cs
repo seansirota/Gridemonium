@@ -16,19 +16,19 @@ namespace Gridemonium
         public Bubble.BubbleType EffectType { get; set; }
 
         //Hub method that takes access a bubble object and uses its effect type to activate a method associated with it.
-        public void ChooseEffect(Bubble bubble)
+        public string ChooseEffect(Bubble bubble)
         {
             switch (EffectType)
             {
                 case Bubble.BubbleType.LeftRight:
                     ActivateLeftRight(bubble.Number);
-                    break;
+                    return "Destroyed bubbles\nhorizontally.";
                 case Bubble.BubbleType.UpDown:
                     ActivateUpDown(bubble.Letter);
-                    break;
+                    return "Destroyed bubbles\nvertically.";
                 case Bubble.BubbleType.Power:
                     ActivatePower();
-                    break;
+                    return "Recieved power up.";
                 case Bubble.BubbleType.A:
                 case Bubble.BubbleType.B:
                 case Bubble.BubbleType.C:
@@ -41,29 +41,30 @@ namespace Gridemonium
                     {
                         case 1:
                             Activate1();
-                            break;
+                            return "Destroyed bubbles in\na plus formation.";
                         case 2:
                             Activate2();
-                            break;
+                            return "Damaged a random\nspawner by 25%.";
                         case 3:
                             Activate3();
-                            break;
+                            return "Damaged 3 random\nspawners by 10%\neach.";
                         case 4:
                             Activate4();
-                            break;
+                            return "Received 3 more\nblasts.";
                         case 5:
                             Activate5(bubble.Number, bubble.Letter);
-                            break;
+                            return "Destroyed bubbles\naround the blasted\nbubble.";
                         case 6:
                             Activate6();
-                            break;
+                            return "Transformed all block\nbubbles into blank\nbubbles.";
                         default:
-                            break;
+                            return "An error occured.\nNo letter bubble\nchosen.";
                     }
-                    break;
-                case Bubble.BubbleType.Blank:
+                case Bubble.BubbleType.Blank:                    
                 case Bubble.BubbleType.Block:
-                    break;
+                    return "";
+                default:
+                    return "ChooseEffect error.";
             }
         }
 
@@ -182,10 +183,58 @@ namespace Gridemonium
 
         private void Activate6()
         {
-            List<KeyValuePair<string, Bubble>> list = Bubble.BubbleGrid.Where(x => x.Value.Type == Bubble.BubbleType.Block).ToList();
-
             foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.Type == Bubble.BubbleType.Block))
                 entry.Value.ImageUpdate("Blank");
+        }
+
+        //Method for effect of Tranform power up.
+        public static string PowerTransform()
+        {
+            foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.Type == Bubble.BubbleType.Block))
+                entry.Value.ImageUpdate("Random");
+
+            return "Transformed all block\nbubbles into random\nbubbles.";
+        }
+
+        //Method for effect of Funnel power up.
+        public static string PowerFunnel()
+        {
+            foreach (char letter in new List<char> { 'C', 'D', 'E' }) 
+            {
+                foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.Letter == letter))
+                    entry.Value.ImageUpdate("Destroyed");
+            }
+
+            return "Destroyed all bubbles\nwithin the three\nmiddle columns.";
+        }
+
+        //Method for effect of Snipe power up.
+        public static string PowerSnipe()
+        {
+            if (Spawner.AllSpawnersDestroyed())
+                return "All Spawners have\nbeen destroyed";
+
+            char letter;
+            bool rollAgain;
+
+            for (int i = 0; i < 7; i++)
+            {
+                do
+                {
+                    if (!Spawner.SpawnerList[i].CheckPercentValue())
+                    {
+                        _numberList.Remove(i);
+                        rollAgain = true;
+                    }
+                    else
+                        rollAgain = false;
+                } while (rollAgain);
+
+                letter = (char)(i + 64);
+                Spawner.DamageSpawner(letter, 5);
+            }
+
+            return "Damaged all spawners\nby 5%.";
         }
     }
 }
