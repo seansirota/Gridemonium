@@ -10,24 +10,24 @@ namespace Gridemonium
     public class ItemCounter
     {
         public string Name { get; set; }
+        public Control CounterLabel;
 
-        private Control _counterLabel;
         private int _value;
 
         //ItemCounter class constructor. Five are created for each of the counting labels.
         public ItemCounter(Control control, string name, int amount)
         {
             Name = name;
-            _counterLabel = control;            
+            CounterLabel = control;            
             _value = amount;
-            _counterLabel.Text = Name + ": " + _value;
+            CounterLabel.Text = Name + ": " + _value;
         }
 
         //Used to update any of the item counters with a single amount parameter.
         public void UpdateCounter(int changeAmount)
         {
             _value += changeAmount;
-            _counterLabel.Text = Name + ": " + _value;
+            CounterLabel.Text = Name + ": " + _value;
         }
     }
 }

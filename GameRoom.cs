@@ -5,7 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Gridemonium
@@ -109,7 +109,8 @@ namespace Gridemonium
 
                 do
                 {
-                    spawnRow = Bubble.BubbleGrid["Bubble" + letter.ToString() + "1"].SpawnBubble("Blank");
+                    spawnRow = Bubble.BubbleGrid["Bubble" + letter.ToString() + "1"].SpawnBubble("Random");
+                    RefreshGrid(0);
 
                     if (spawnRow > -1)
                     {
@@ -147,8 +148,27 @@ namespace Gridemonium
             {
                 row = Bubble.BubbleGrid["Bubble" + letter.ToString() + row.ToString()].BubbleFall();
                 if (row > 0)
-                    row -= 2;
+                    row -= 2;                
             }
+
+            RefreshGrid(0);
+        }
+
+        //Redraws all bubbles after a major action occurs.
+        public static void RefreshGrid(int ticks)
+        {
+            foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid)
+                entry.Value.VisualComponent.Refresh();
+
+            foreach (Spawner spawner in Spawner.SpawnerList)
+                spawner.PercentLabel.Refresh();
+
+            foreach (ItemCounter counter in Bubble.CounterList)
+                counter.CounterLabel.Refresh();
+
+            this.EventText.Refresh();
+
+            Thread.Sleep(ticks);
         }
 
         //Action button click event. Handles destroying bottommost bubble of column targetted, activates effect of destroyed bubble, drops all bubbles down,
@@ -175,7 +195,8 @@ namespace Gridemonium
                         break;
                 }
 
-                Bubble.RefreshGrid(500);
+                RefreshGrid(250);
+                Bubble.CompleteAllEffects();
 
                 foreach (char letter in LetterList)
                 {
@@ -208,7 +229,7 @@ namespace Gridemonium
                     ActionButton.Text = "Fire";
 
                 char columnLetter = columnChoice.Name.Last();
-                int returnValue = Bubble.BubbleGrid["Bubble" + columnLetter.ToString() + "5"].DestroyBubble(true);  
+                int returnValue = Bubble.BubbleGrid["Bubble" + columnLetter.ToString() + "5"].DestroyBubble();  
 
                 switch (returnValue)
                 {
@@ -220,7 +241,7 @@ namespace Gridemonium
                         break;
                     case 1:
 
-                        //CompleteAllEffects();                        
+                        Bubble.CompleteAllEffects();                        
                         
                         foreach (char letter in LetterList)
                         {
@@ -232,8 +253,7 @@ namespace Gridemonium
                             {                                
                                 returnValue = checkBubble.SpawnBubble("Random");
                                 DropAll(letter, 4);                                
-                            }                            
-
+                            }
                         }
                         
                         this.EventText.Text = "Successful fire.";

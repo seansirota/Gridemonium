@@ -21,20 +21,20 @@ namespace Gridemonium
         public Bitmap Image { get; set; }
         public Effect BubbleEffect { get; set; }
         public BubbleType Type;
+        public PictureBox VisualComponent;
 
         private BubbleState _state;        
-        private int _waitListPlace;
-        private PictureBox _visualComponent;
+        private int _waitListPlace;        
 
         //Constructor when all Bubbles in grid are initialized. No new Bubble objects can be created or destroyed, only changed.
         public Bubble(char letter, int number, PictureBox box)
         {
-            _visualComponent = box;
+            VisualComponent = box;
             Letter = letter;
             Number = number;
             Name = box.Name;
             BubbleEffect = new Effect();
-            ImageUpdate("_");
+            ImageUpdate("_", true);
         }        
 
         //Basic method for "spawning" a bubble. It actually checks if the picture box of the bubble object is null or not and then changes the image to something else.
@@ -43,7 +43,7 @@ namespace Gridemonium
             if (Image != null)
                 return -1;
 
-            ImageUpdate(type);
+            ImageUpdate(type, true);
 
             return Number;
         }
@@ -56,52 +56,59 @@ namespace Gridemonium
 
             Bubble bubbleDown = BubbleGrid["Bubble" + Letter.ToString() + (Number + 1).ToString()];
             if (bubbleDown.Image != null)
-                return -1;
+                return bubbleDown.Number;
 
-            bubbleDown.ImageUpdate(Type.ToString());
-            ImageUpdate("_");         
+            bubbleDown.ImageUpdate(Type.ToString(), true);
+            ImageUpdate("_", true);         
 
             return bubbleDown.Number;
         }
 
         //Updates the image of the bubble object as well as the picture box it is tied to in one method.
-        public void ImageUpdate(string type)
+        public void ImageUpdate(string type, bool changeTypeFlag)
         {
             Bitmap image = SpawnType(type);
-            BubbleEffect.EffectType = Type;
+            if (changeTypeFlag)
+                BubbleEffect.EffectType = Type;
             Image = image;
-            _visualComponent.Image = image;
+            VisualComponent.Image = image;
 
-            if (Type != BubbleType._ || Type != BubbleType.Destroyed)
-                _state = BubbleState.Active;
-            else if (Type == BubbleType.Destroyed && _state == BubbleState.Active)
-            {
+            if (_state == BubbleState.Active && changeTypeFlag == true)
+                _state = BubbleState.Empty;
+            else if (_state == BubbleState.Active && changeTypeFlag == false)
+            {                
                 _state = BubbleState.Destroyed;
-                WaitList.Add(this);
-                _waitListPlace = WaitList.Count;
-            }                
+                if (BubbleEffect.EffectType != BubbleType.Blank & BubbleEffect.EffectType != BubbleType.Block)
+                {
+                    WaitList.Add(this);
+                    _waitListPlace = WaitList.Count;
+                }                
+            }
             else
             {
-                _state = BubbleState.Empty;
-                WaitList.Remove(this);
-                _waitListPlace = 0;
+                _state = BubbleState.Active;
+                if (BubbleEffect.EffectType != BubbleType.Blank & BubbleEffect.EffectType != BubbleType.Block)
+                {
+                    WaitList.Remove(this);
+                    _waitListPlace = 0;
+                }                
             }                
         }
 
         //Sets a bubble to default values. Returns an int describing the result, whether an Action Button press was used or not.
-        public int DestroyBubble(bool buttonPress)
+        public int DestroyBubble()
         {
             int bubbleType;
 
             if (Type == BubbleType._)
                 bubbleType = -1;
-            else if (Type == BubbleType.Block && buttonPress == true)
+            else if (Type == BubbleType.Block)
                 bubbleType = 0;
             else
             {
                 BubbleEffect.ChooseEffect(this);
-                ImageUpdate("_");
-                RefreshGrid(500);
+                ImageUpdate("_", true);
+                RefreshGrid(250);
                 bubbleType = 1;
             }                       
 
@@ -111,20 +118,19 @@ namespace Gridemonium
         //Static method for completing all waitlisted effects after an action is taken.
         public static void CompleteAllEffects()
         {
+            Bubble bubble;
+
             while (WaitList.Count > 0)
             {
-
+                bubble = WaitList[0];
+                if (bubble != null)
+                {
+                    bubble.BubbleEffect.ChooseEffect(bubble);
+                    bubble.ImageUpdate("_", true);
+                    RefreshGrid(250);
+                }                    
             }
-        }
-
-        //Redraws all bubbles after a major action occurs.
-        public static void RefreshGrid(int ticks)
-        {
-            foreach (KeyValuePair<string, Bubble> entry in BubbleGrid)
-                entry.Value._visualComponent.Refresh();
-
-            Thread.Sleep(ticks);
-        }        
+        }                
 
         //Method that returns an image reference when spawning bubbles.
         private Bitmap SpawnType(string type)
@@ -247,7 +253,6 @@ namespace Gridemonium
             E,
             F,
             _,
-            Destroyed
         }
 
         //Enums for the status of a bubble.

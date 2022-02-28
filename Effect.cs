@@ -71,13 +71,13 @@ namespace Gridemonium
         private void ActivateLeftRight(int row)
         {
             foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.Number == row))
-                entry.Value.ImageUpdate("Destroyed");
+                entry.Value.ImageUpdate("_", false);
         }
 
         private void ActivateUpDown(char col)
         {
             foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.Letter == col))
-                entry.Value.ImageUpdate("Destroyed");
+                entry.Value.ImageUpdate("_", false);
         }
 
         private void ActivatePower()
@@ -104,9 +104,9 @@ namespace Gridemonium
         private void Activate1()
         {
             foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.Number == 3))
-                entry.Value.ImageUpdate("Destroyed");
+                entry.Value.ImageUpdate("_", false);
             foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.Letter == 'D'))
-                entry.Value.ImageUpdate("Destroyed");
+                entry.Value.ImageUpdate("_", false);
         }
 
         private void Activate2()
@@ -176,7 +176,7 @@ namespace Gridemonium
                 for (int j = -1; j < 2; j++)
                 {
                     if (Bubble.BubbleGrid.ContainsKey("Bubble" + ((char)(col + i)).ToString() + (row + j).ToString()))
-                        Bubble.BubbleGrid.FirstOrDefault(x => x.Value.Name == "Bubble" + ((char)(col + i)).ToString() + (row + j).ToString()).Value.ImageUpdate("Destroyed");
+                        Bubble.BubbleGrid.FirstOrDefault(x => x.Value.Name == "Bubble" + ((char)(col + i)).ToString() + (row + j).ToString()).Value.ImageUpdate("_", false);
                 }
             }
         }
@@ -184,14 +184,14 @@ namespace Gridemonium
         private void Activate6()
         {
             foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.Type == Bubble.BubbleType.Block))
-                entry.Value.ImageUpdate("Blank");
+                entry.Value.ImageUpdate("Blank", true);
         }
 
         //Method for effect of Tranform power up.
         public static string PowerTransform()
         {
             foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.Type == Bubble.BubbleType.Block))
-                entry.Value.ImageUpdate("Random");
+                entry.Value.ImageUpdate("Random", true);
 
             return "Transformed all block\nbubbles into random\nbubbles.";
         }
@@ -202,7 +202,7 @@ namespace Gridemonium
             foreach (char letter in new List<char> { 'C', 'D', 'E' }) 
             {
                 foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.Letter == letter))
-                    entry.Value.ImageUpdate("Destroyed");
+                    entry.Value.ImageUpdate("_", false);
             }
 
             return "Destroyed all bubbles\nwithin the three\nmiddle columns.";
