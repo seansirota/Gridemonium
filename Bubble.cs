@@ -78,21 +78,23 @@ namespace Gridemonium
             else if (_state == BubbleState.Active && changeTypeFlag == false)
             {                
                 _state = BubbleState.Destroyed;
-                if (BubbleEffect.EffectType != BubbleType.Blank & BubbleEffect.EffectType != BubbleType.Block)
+                if (BubbleEffect.EffectType != BubbleType.Blank && BubbleEffect.EffectType != BubbleType.Block)
                 {
                     WaitList.Add(this);
                     _waitListPlace = WaitList.Count;
                 }                
             }
-            else
+            else if (_state == BubbleState.Destroyed)
             {
-                _state = BubbleState.Active;
-                if (BubbleEffect.EffectType != BubbleType.Blank & BubbleEffect.EffectType != BubbleType.Block)
+                _state = BubbleState.Empty;
+                if (BubbleEffect.EffectType != BubbleType.Blank && BubbleEffect.EffectType != BubbleType.Block)
                 {
                     WaitList.Remove(this);
                     _waitListPlace = 0;
-                }                
-            }                
+                }
+            }
+            else if (_state == BubbleState.Empty && type != "_")
+                _state = BubbleState.Active;
         }
 
         //Sets a bubble to default values. Returns an int describing the result, whether an Action Button press was used or not.
@@ -106,13 +108,30 @@ namespace Gridemonium
                 bubbleType = 0;
             else
             {
-                BubbleEffect.ChooseEffect(this);
+                Application.OpenForms["GameRoom"].Controls["EventText"].Text = BubbleEffect.ChooseEffect(this);
                 ImageUpdate("_", true);
-                RefreshGrid(250);
+                RefreshGrid(500);
                 bubbleType = 1;
             }                       
 
             return bubbleType;
+        }
+
+        //Redraws all bubbles after a major action occurs.
+        public static void RefreshGrid(int ticks)
+        {
+            foreach (KeyValuePair<string, Bubble> entry in BubbleGrid)
+                entry.Value.VisualComponent.Refresh();
+
+            foreach (Spawner spawner in Spawner.SpawnerList)
+                spawner.PercentLabel.Refresh();
+
+            foreach (ItemCounter counter in CounterList)
+                counter.CounterLabel.Refresh();
+
+            Application.OpenForms["GameRoom"].Controls["EventText"].Refresh();
+
+            Thread.Sleep(ticks);
         }
 
         //Static method for completing all waitlisted effects after an action is taken.
@@ -125,9 +144,9 @@ namespace Gridemonium
                 bubble = WaitList[0];
                 if (bubble != null)
                 {
-                    bubble.BubbleEffect.ChooseEffect(bubble);
+                    Application.OpenForms["GameRoom"].Controls["EventText"].Text = bubble.BubbleEffect.ChooseEffect(bubble);
                     bubble.ImageUpdate("_", true);
-                    RefreshGrid(250);
+                    RefreshGrid(500);
                 }                    
             }
         }                
@@ -258,9 +277,9 @@ namespace Gridemonium
         //Enums for the status of a bubble.
         public enum BubbleState
         {
-            Active,
+            Empty,            
             Destroyed,
-            Empty
+            Active
         }
     }
 }

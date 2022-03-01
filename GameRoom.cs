@@ -110,7 +110,7 @@ namespace Gridemonium
                 do
                 {
                     spawnRow = Bubble.BubbleGrid["Bubble" + letter.ToString() + "1"].SpawnBubble("Random");
-                    RefreshGrid(0);
+                    Bubble.RefreshGrid(0);
 
                     if (spawnRow > -1)
                     {
@@ -151,24 +151,7 @@ namespace Gridemonium
                     row -= 2;                
             }
 
-            RefreshGrid(0);
-        }
-
-        //Redraws all bubbles after a major action occurs.
-        public static void RefreshGrid(int ticks)
-        {
-            foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid)
-                entry.Value.VisualComponent.Refresh();
-
-            foreach (Spawner spawner in Spawner.SpawnerList)
-                spawner.PercentLabel.Refresh();
-
-            foreach (ItemCounter counter in Bubble.CounterList)
-                counter.CounterLabel.Refresh();
-
-            this.EventText.Refresh();
-
-            Thread.Sleep(ticks);
+            Bubble.RefreshGrid(0);
         }
 
         //Action button click event. Handles destroying bottommost bubble of column targetted, activates effect of destroyed bubble, drops all bubbles down,
@@ -195,7 +178,7 @@ namespace Gridemonium
                         break;
                 }
 
-                RefreshGrid(250);
+                Bubble.RefreshGrid(500);
                 Bubble.CompleteAllEffects();
 
                 foreach (char letter in LetterList)
@@ -234,10 +217,10 @@ namespace Gridemonium
                 switch (returnValue)
                 {
                     case -1:
-                        this.EventText.Text = "You can't destroy a\nnull bubble.";
+                        EventText.Text = "You can't destroy a\nnull bubble.";
                         break;
                     case 0:
-                        this.EventText.Text = "Block bubble can't\nbe destroyed by Fire\nbutton.";
+                        EventText.Text = "Block bubble can't\nbe destroyed by Fire\nbutton.";
                         break;
                     case 1:
 
@@ -256,7 +239,7 @@ namespace Gridemonium
                             }
                         }
                         
-                        this.EventText.Text = "Successful fire.";
+                        EventText.Text = "Successful fire.";
                         break;
                     default:
                         break;

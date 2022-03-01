@@ -21,10 +21,10 @@ namespace Gridemonium
             switch (EffectType)
             {
                 case Bubble.BubbleType.LeftRight:
-                    ActivateLeftRight(bubble.Number);
+                    ActivateLeftRight(bubble.Number, bubble.Letter);
                     return "Destroyed bubbles\nhorizontally.";
                 case Bubble.BubbleType.UpDown:
-                    ActivateUpDown(bubble.Letter);
+                    ActivateUpDown(bubble.Number, bubble.Letter);
                     return "Destroyed bubbles\nvertically.";
                 case Bubble.BubbleType.Power:
                     ActivatePower();
@@ -40,7 +40,7 @@ namespace Gridemonium
                     switch (key)
                     {
                         case 1:
-                            Activate1();
+                            Activate1(bubble.Number, bubble.Letter);
                             return "Destroyed bubbles in\na plus formation.";
                         case 2:
                             Activate2();
@@ -68,16 +68,40 @@ namespace Gridemonium
             }
         }
 
-        private void ActivateLeftRight(int row)
+        private void ActivateLeftRight(int row, char col)
         {
             foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.Number == row))
-                entry.Value.ImageUpdate("_", false);
+            {
+                if (entry.Value.Letter != col)
+                    entry.Value.ImageUpdate("_", false);
+            }                
         }
 
-        private void ActivateUpDown(char col)
+        private void ActivateUpDown(int row, char col)
         {
             foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.Letter == col))
-                entry.Value.ImageUpdate("_", false);
+            {
+                if (entry.Value.Number != row)
+                    entry.Value.ImageUpdate("_", false);
+            }                
+
+            if (Spawner.AllSpawnersDestroyed())
+                return;
+
+            bool rollAgain;
+
+            do
+            {
+                if (!Spawner.SpawnerList[col - 65].CheckPercentValue())
+                {
+                    _numberList.Remove(col - 65);
+                    rollAgain = true;
+                }
+                else
+                    rollAgain = false;
+            } while (rollAgain);
+
+            Spawner.DamageSpawner((char)(col - 1), 10);
         }
 
         private void ActivatePower()
@@ -101,12 +125,22 @@ namespace Gridemonium
             }
         }
 
-        private void Activate1()
+        private void Activate1(int row, char col)
         {
             foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.Number == 3))
+            {
+                if (entry.Value.Letter == col && entry.Value.Number == row)
+                    continue;
+
                 entry.Value.ImageUpdate("_", false);
+            }
             foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.Letter == 'D'))
+            {
+                if (entry.Value.Letter == col && entry.Value.Number == row)
+                    continue;
+
                 entry.Value.ImageUpdate("_", false);
+            }
         }
 
         private void Activate2()
@@ -175,6 +209,9 @@ namespace Gridemonium
             {
                 for (int j = -1; j < 2; j++)
                 {
+                    if (i == 0 && j == 0)
+                        continue;
+
                     if (Bubble.BubbleGrid.ContainsKey("Bubble" + ((char)(col + i)).ToString() + (row + j).ToString()))
                         Bubble.BubbleGrid.FirstOrDefault(x => x.Value.Name == "Bubble" + ((char)(col + i)).ToString() + (row + j).ToString()).Value.ImageUpdate("_", false);
                 }
