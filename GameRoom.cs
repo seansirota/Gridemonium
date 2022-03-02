@@ -94,6 +94,8 @@ namespace Gridemonium
                     PictureBox box = _boxList.Find(x => x.Name == "Bubble" + LetterList[i].ToString() + j.ToString());
                     Bubble bubble = new Bubble(LetterList[i], j, box);
                     Bubble.BubbleGrid.Add(bubble.Name, bubble);
+                    if (j == 0)
+                        Event.EventBubbleList.Add(bubble.Name, bubble);
                 }
             }
         }
@@ -139,8 +141,8 @@ namespace Gridemonium
             Bubble.CounterList.Add(snipes);
         }
 
-        //Method that drops all bubbles down starting from the bottom.
-        public void DropAll(char letter, int startRow)
+        //Method that drops all bubbles in a column.
+        private void DropAllColumn(char letter, int startRow)
         {
             int row = startRow;            
 
@@ -151,7 +153,24 @@ namespace Gridemonium
                     row -= 2;                
             }
 
-            Bubble.RefreshGrid(0);
+            Bubble.RefreshGrid(0); 
+        }
+
+        //Method that drops all bubbles in the entire grid.
+        private void DropAllGrid()
+        {
+            foreach (char letter in LetterList)
+            {
+                Bubble checkBubble = Bubble.BubbleGrid["Bubble" + letter.ToString() + "1"];
+                int returnValue = 0;
+                DropAllColumn(letter, 4);
+
+                while (returnValue != -1)
+                {
+                    returnValue = checkBubble.SpawnBubble("Random");
+                    DropAllColumn(letter, 4);
+                }
+            }
         }
 
         //Action button click event. Handles destroying bottommost bubble of column targetted, activates effect of destroyed bubble, drops all bubbles down,
@@ -181,22 +200,15 @@ namespace Gridemonium
                 Bubble.RefreshGrid(500);
                 Bubble.CompleteAllEffects();
 
-                foreach (char letter in LetterList)
-                {
-                    Bubble checkBubble = Bubble.BubbleGrid["Bubble" + letter.ToString() + "1"];
-                    int returnValue = 0;
-                    DropAll(letter, 4);
+                DropAllGrid();
+                EventText.Text = Event.EventHub();
+                DropAllGrid();
 
-                    while (returnValue != -1)
-                    {
-                        returnValue = checkBubble.SpawnBubble("Random");
-                        DropAll(letter, 4);
-                    }
-
-                }
+                Bubble.RefreshGrid(500);
 
                 PowerUpButton.Text = "Apply";
                 ActionButton.Text = "Fire";
+                EventText.Text = "Power up used.";
             }
             else
             {
@@ -224,22 +236,15 @@ namespace Gridemonium
                         break;
                     case 1:
 
-                        Bubble.CompleteAllEffects();                        
-                        
-                        foreach (char letter in LetterList)
-                        {
-                            Bubble checkBubble = Bubble.BubbleGrid["Bubble" + letter.ToString() + "1"];
-                            returnValue = 0;
-                            DropAll(letter, 4);
+                        Bubble.CompleteAllEffects();
 
-                            while (returnValue != -1)
-                            {                                
-                                returnValue = checkBubble.SpawnBubble("Random");
-                                DropAll(letter, 4);                                
-                            }
-                        }
-                        
-                        EventText.Text = "Successful fire.";
+                        DropAllGrid();
+                        EventText.Text = Event.EventHub();
+                        DropAllGrid();
+
+                        Bubble.RefreshGrid(500);
+
+                        EventText.Text = "Successful blast.";
                         break;
                     default:
                         break;
@@ -250,8 +255,16 @@ namespace Gridemonium
         //Event that updates button texts when Power Up button is clicked.
         private void PowerUpButton_Click(object sender, EventArgs e)
         {            
-            PowerUpButton.Text = "Applied";
-            ActionButton.Text = "Use Power";            
+            if (PowerUpButton.Text == "Apply")
+            {
+                PowerUpButton.Text = "Applied";
+                ActionButton.Text = "Use Power";
+            }            
+            else
+            {
+                PowerUpButton.Text = "Apply";
+                ActionButton.Text = "Fire";
+            }
         }
     }
 }

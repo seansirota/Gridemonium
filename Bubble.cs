@@ -67,11 +67,10 @@ namespace Gridemonium
         //Updates the image of the bubble object as well as the picture box it is tied to in one method.
         public void ImageUpdate(string type, bool changeTypeFlag)
         {
-            Bitmap image = SpawnType(type);
+            Image = SpawnType(type);
             if (changeTypeFlag)
                 BubbleEffect.EffectType = Type;
-            Image = image;
-            VisualComponent.Image = image;
+            VisualComponent.Image = Image;
 
             if (_state == BubbleState.Active && changeTypeFlag == true)
                 _state = BubbleState.Empty;
@@ -154,8 +153,10 @@ namespace Gridemonium
         //Method that returns an image reference when spawning bubbles.
         private Bitmap SpawnType(string type)
         {
-            if (type != "Random")
+            if (type != "Random" && type != "Letter")
                 Enum.TryParse(type, out Type);
+
+            Random random = new Random();
 
             switch (type)
             {
@@ -165,8 +166,6 @@ namespace Gridemonium
                     int blockChance = 12;
                     int powerChance = 10;
                     int blankChance = 50;
-
-                    Random random = new Random();
                     int rng = random.Next(1, 101);
 
                     if (rng > 0 && rng <= blankChance)
@@ -230,6 +229,32 @@ namespace Gridemonium
                     }
                     else
                         return null;
+                case "Letter":
+                    rng = random.Next(1, 7);
+                    switch (rng)
+                    {
+                        case 1:
+                            Type = BubbleType.A;
+                            return Properties.Resources.a;
+                        case 2:
+                            Type = BubbleType.B;
+                            return Properties.Resources.b;
+                        case 3:
+                            Type = BubbleType.C;
+                            return Properties.Resources.c;
+                        case 4:
+                            Type = BubbleType.D;
+                            return Properties.Resources.d;
+                        case 5:
+                            Type = BubbleType.E;
+                            return Properties.Resources.e;
+                        case 6:
+                            Type = BubbleType.F;
+                            return Properties.Resources.f;
+                        default:
+                            Type = BubbleType._;
+                            return null;
+                    }
                 case "Blank":
                     return Properties.Resources.blank;
                 case "LeftRight":

@@ -88,20 +88,10 @@ namespace Gridemonium
             if (Spawner.AllSpawnersDestroyed())
                 return;
 
-            bool rollAgain;
-
-            do
-            {
-                if (!Spawner.SpawnerList[col - 65].CheckPercentValue())
-                {
-                    _numberList.Remove(col - 65);
-                    rollAgain = true;
-                }
-                else
-                    rollAgain = false;
-            } while (rollAgain);
-
-            Spawner.DamageSpawner((char)(col - 1), 10);
+            if (!Spawner.SpawnerList[col - 65].CheckPercentValue())
+                _numberList.Remove(col - 65);
+            else
+                Spawner.DamageSpawner((char)(col - 1), 10);
         }
 
         private void ActivatePower()
@@ -190,7 +180,11 @@ namespace Gridemonium
                         rollAgain = true;
                     }
                     else
+                    {
                         rollAgain = false;
+                        if (Spawner.AllSpawnersDestroyed())
+                            return;
+                    }                        
                 } while (rollAgain);
 
                 letter = (char)(rng + 64);
@@ -252,23 +246,16 @@ namespace Gridemonium
                 return "All Spawners have\nbeen destroyed";
 
             char letter;
-            bool rollAgain;
 
             for (int i = 0; i < 7; i++)
             {
-                do
+                if (!Spawner.SpawnerList[i].CheckPercentValue())
+                    _numberList.Remove(i);
+                else
                 {
-                    if (!Spawner.SpawnerList[i].CheckPercentValue())
-                    {
-                        _numberList.Remove(i);
-                        rollAgain = true;
-                    }
-                    else
-                        rollAgain = false;
-                } while (rollAgain);
-
-                letter = (char)(i + 64);
-                Spawner.DamageSpawner(letter, 5);
+                    letter = (char)(i + 64);
+                    Spawner.DamageSpawner(letter, 5);
+                }                
             }
 
             return "Damaged all spawners\nby 5%.";
