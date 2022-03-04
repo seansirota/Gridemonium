@@ -53,6 +53,7 @@
             this.EasyMode.TabIndex = 1;
             this.EasyMode.Text = "Easy Mode";
             this.EasyMode.UseVisualStyleBackColor = true;
+            this.EasyMode.Click += new System.EventHandler(this.EasyMode_Click);
             // 
             // NormalMode
             // 
@@ -72,6 +73,7 @@
             this.HardMode.TabIndex = 3;
             this.HardMode.Text = "Hard Mode";
             this.HardMode.UseVisualStyleBackColor = true;
+            this.HardMode.Click += new System.EventHandler(this.HardMode_Click);
             // 
             // Guide
             // 

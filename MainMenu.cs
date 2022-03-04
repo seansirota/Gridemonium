@@ -17,24 +17,58 @@ namespace Gridemonium
             InitializeComponent();            
         }
 
-        //Normal Mode button click event. Builds the room and instantiates all Bubble objects.
+        //Button click events for each difficulty mode.
         //All mode specific parameters are also set here before starting the game.
-        private void NormalMode_Click(object sender, EventArgs e)
+        private void EasyMode_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            GameRoom game = new GameRoom();
-            game.Show();
-            game.AssignBubbles();
-            game.InitiateGrid();
-            game.SetUpCounters();
-            game.SetUpLetterBubbles();
+            StartUpGameRoom("Easy");
         }
 
+        private void NormalMode_Click(object sender, EventArgs e)
+        {
+            StartUpGameRoom("Normal");
+        }
+
+        private void HardMode_Click(object sender, EventArgs e)
+        {
+            StartUpGameRoom("Hard");
+        }
+
+        //Method that takes you to guide form.
         private void Guide_Click(object sender, EventArgs e)
         {
             this.Hide();
             Guide guide = new Guide();
             guide.Show();            
+        } 
+        
+        //Method for starting up game room form.
+        private void StartUpGameRoom(string mode)
+        {
+            Form form = Application.OpenForms["GameRoom"];
+
+            if (Application.OpenForms["GameRoom"] == null)
+            {
+                this.Hide();
+                GameRoom game = new GameRoom(mode);
+                game.Show();
+                game.MatchSpawner();                
+                game.AssignBubbles();
+                game.InitiateGrid();
+                game.SetUpCounters();
+                game.SetUpLetterBubbles();                
+            }
+            else
+            {                
+                this.Hide();
+                GameRoom game = (GameRoom)form;
+                form.Show();
+                game.ClearGrid();
+                game.RestartForm(mode);
+                game.SetUpCounters();
+                game.AssignBubbles();
+                game.InitiateGrid();                                                           
+            }            
         }
     }
 }

@@ -22,10 +22,10 @@ namespace Gridemonium
 
             Random random = new Random();
             int rng = random.Next(1, 101);
-            int randomChance = 15;
-            int blockChance = 15;
-            int blankChance = 15;
-            int letterChance = 15;
+            int randomChance = Settings.RetrieveValue("EventRandomChance");
+            int blockChance = Settings.RetrieveValue("EventBlockChance");
+            int blankChance = Settings.RetrieveValue("EventBlankChance");
+            int letterChance = Settings.RetrieveValue("EventLetterChance");
 
             string eventType;
             string returnText;

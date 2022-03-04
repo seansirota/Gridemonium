@@ -109,6 +109,7 @@ namespace Gridemonium
             {
                 Application.OpenForms["GameRoom"].Controls["EventText"].Text = BubbleEffect.ChooseEffect(this);
                 ImageUpdate("_", true);
+                CounterList.FirstOrDefault(x => x.Name == "Score").UpdateCounter(10 * Settings.RetrieveValue("ScoreMultiplier"));
                 RefreshGrid(500);
                 bubbleType = 1;
             }                       
@@ -145,6 +146,7 @@ namespace Gridemonium
                 {
                     Application.OpenForms["GameRoom"].Controls["EventText"].Text = bubble.BubbleEffect.ChooseEffect(bubble);
                     bubble.ImageUpdate("_", true);
+                    CounterList.FirstOrDefault(x => x.Name == "Score").UpdateCounter(10 * Settings.RetrieveValue("ScoreMultiplier"));
                     RefreshGrid(500);
                 }                    
             }
@@ -160,13 +162,12 @@ namespace Gridemonium
 
             switch (type)
             {
-                case "Random":                    
-                    int letterChance = 18;
-                    int arrowChance = 10;
-                    int blockChance = 12;
-                    int powerChance = 10;
-                    int blankChance = 50;
-                    int rng = random.Next(1, 101);
+                case "Random":
+                    int rng = random.Next(1, 101);              
+                    int arrowChance = Settings.RetrieveValue("BubbleArrowChance");
+                    int blockChance = Settings.RetrieveValue("BubbleBlockChance");
+                    int powerChance = Settings.RetrieveValue("BubblePowerChance");
+                    int blankChance = Settings.RetrieveValue("BubbleBlankChance");
 
                     if (rng > 0 && rng <= blankChance)
                     {
@@ -199,7 +200,7 @@ namespace Gridemonium
                                 return null;
                         }
                     }
-                    else if (rng > blankChance + powerChance + blockChance + arrowChance && rng <= blankChance + powerChance + blockChance + arrowChance + letterChance)
+                    else
                     {
                         rng = random.Next(1, 7);
                         switch (rng)
@@ -227,8 +228,6 @@ namespace Gridemonium
                                 return null;
                         }
                     }
-                    else
-                        return null;
                 case "Letter":
                     rng = random.Next(1, 7);
                     switch (rng)

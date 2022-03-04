@@ -19,11 +19,29 @@ namespace Gridemonium
         public static readonly char[] LetterList = { 'A', 'B', 'C', 'D', 'E', 'F', 'G' };        
 
         //Instantiate all objects in GameRoom form and add all the picture boxes to a list so they can be added to the BubbleGrid after.
-        public GameRoom()
+        public GameRoom(string mode)
         {
-            InitializeComponent();
-            MatchSpawner();
+            InitializeComponent();            
 
+            //Switch statement that chooses the correct difficulty settings based on the chosen mode. See below for parameters of InitiateSettings method.
+            //BubbleArrowChance, BubbleBlockChance, BubblePowerChance, BubbleBlankChance,
+            //EventLetterChance, EventBlockChance, EventRandomChance, EventBlankChance,
+            //StartingAmmo, ScoreMultiplier
+            switch (mode)
+            {
+                case "Easy":
+                    Settings.InitiateSettings(10, 12, 10, 50, 15, 15, 15, 15, 50, 5);
+                    break;
+                case "Normal":
+                    Settings.InitiateSettings(8, 18, 8, 54, 12, 21, 15, 12, 40, 10);
+                    break;
+                case "Hard":
+                    Settings.InitiateSettings(6, 28, 6, 54, 9, 30, 12, 9, 30, 15);
+                    break;
+                default:
+                    break;
+            }
+          
             foreach (PictureBox box in MainBox.Controls)
                 _boxList.Add(box);
 
@@ -31,8 +49,46 @@ namespace Gridemonium
                 _boxList.Add(box);
         }
 
+        //Method for clearing the bubble grid when playing another game.
+        public void ClearGrid()
+        {
+            foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid)
+                entry.Value.ImageUpdate("_", true);
+            foreach (KeyValuePair<string, Bubble> entry in Event.EventBubbleList)
+                entry.Value.ImageUpdate("_", true);
+
+            Bubble.BubbleGrid.Clear();
+            Event.EventBubbleList.Clear();
+        }
+
+        //Method used to switch the difficulty when replaying the game.
+        public void RestartForm(string mode)
+        {
+            EventText.Text = "";
+            PowerUpButton.Text = "Apply";
+            ActionButton.Text = "Fire";
+
+            foreach (Spawner spawner in Spawner.SpawnerList)
+                spawner.Value = 100;
+
+            switch (mode)
+            {
+                case "Easy":
+                    Settings.InitiateSettings(10, 12, 10, 50, 15, 15, 15, 15, 50, 5);
+                    break;
+                case "Normal":
+                    Settings.InitiateSettings(8, 18, 8, 54, 12, 21, 15, 12, 40, 10);
+                    break;
+                case "Hard":
+                    Settings.InitiateSettings(6, 28, 6, 54, 9, 30, 12, 9, 30, 15);
+                    break;
+                default:
+                    break;
+            }
+        }
+
         //Method that fills the _spawnerList list with all 7 spawner labels.
-        private void MatchSpawner()
+        public void MatchSpawner()
         {
             foreach (char letter in LetterList)
             {                
@@ -47,7 +103,7 @@ namespace Gridemonium
         {
             int rng;
             Bubble.BubbleType value;
-            Random random = new Random();
+            Random random = new Random();            
             List<int> numberList = new List<int> { 1, 2, 3, 4, 5, 6 };
 
             for (int i = 0; i < 6; i++)
@@ -128,13 +184,15 @@ namespace Gridemonium
         //Method that instantiates all counters in the game room including the blasts, score, and power up counts.
         public void SetUpCounters()
         {
-            ItemCounter blasts = new ItemCounter(Controls.OfType<Label>().FirstOrDefault(x => x.Name == "Ammo") ,"Ammo", 100);
+            Bubble.CounterList.Clear();
+
+            ItemCounter ammo = new ItemCounter(Controls.OfType<Label>().FirstOrDefault(x => x.Name == "Ammo"), "Ammo", Settings.RetrieveValue("StartingAmmo"));
             ItemCounter score = new ItemCounter(Controls.OfType<Label>().FirstOrDefault(x => x.Name == "Score"), "Score", 0);
             ItemCounter transforms = new ItemCounter(PowerUpGroup.Controls.OfType<RadioButton>().FirstOrDefault(x => x.Name == "TransformUp"), "Transform", 0);
             ItemCounter funnels = new ItemCounter(PowerUpGroup.Controls.OfType<RadioButton>().FirstOrDefault(x => x.Name == "FunnelUp"), "Funnel", 0);
-            ItemCounter snipes = new ItemCounter(PowerUpGroup.Controls.OfType<RadioButton>().FirstOrDefault(x => x.Name == "SnipeUp"), "Snipe", 0);
+            ItemCounter snipes = new ItemCounter(PowerUpGroup.Controls.OfType<RadioButton>().FirstOrDefault(x => x.Name == "SnipeUp"), "Snipe", 0);       
 
-            Bubble.CounterList.Add(blasts);
+            Bubble.CounterList.Add(ammo);
             Bubble.CounterList.Add(score);
             Bubble.CounterList.Add(transforms);
             Bubble.CounterList.Add(funnels);
@@ -144,14 +202,21 @@ namespace Gridemonium
         //Method that drops all bubbles in a column.
         private void DropAllColumn(char letter, int startRow)
         {
-            int row = startRow;            
+            int row = startRow;
+            bool runAgain = true;
 
-            while (row > -1)
+            do
             {
-                row = Bubble.BubbleGrid["Bubble" + letter.ToString() + row.ToString()].BubbleFall();
-                if (row > 0)
-                    row -= 2;                
-            }
+                runAgain = false;
+                while (row > -1)
+                    row = Bubble.BubbleGrid["Bubble" + letter.ToString() + row.ToString()].BubbleFall() - 2;
+
+                if (Bubble.BubbleGrid.Where(x => x.Value.Letter == letter & x.Value.VisualComponent == null).Any())
+                {
+                    runAgain = true;
+                    row = startRow;
+                }
+            } while (runAgain);
 
             Bubble.RefreshGrid(0); 
         }
@@ -162,13 +227,23 @@ namespace Gridemonium
             foreach (char letter in LetterList)
             {
                 Bubble checkBubble = Bubble.BubbleGrid["Bubble" + letter.ToString() + "1"];
+                Spawner spawner = Spawner.SpawnerList.Find(x => x.PercentLabel.Name == "Percent" + letter.ToString());
+                Random random = new Random();
+                
+                int rng;
                 int returnValue = 0;
                 DropAllColumn(letter, 4);
 
                 while (returnValue != -1)
                 {
-                    returnValue = checkBubble.SpawnBubble("Random");
-                    DropAllColumn(letter, 4);
+                    rng = random.Next(1, 101);
+                    if (rng <= spawner.Value)
+                    {
+                        returnValue = checkBubble.SpawnBubble("Random");
+                        DropAllColumn(letter, 4);
+                    }
+                    else
+                        returnValue = -1;            
                 }
             }
         }
@@ -177,26 +252,38 @@ namespace Gridemonium
         //and finally spawns a new bubble at the top.
         private void ActionButton_Click(object sender, EventArgs e)
         {           
+            //First step of the action button click event is to see if a power up was applied or not.
             if (PowerUpButton.Text == "Applied")
             {
-                RadioButton powerUp = PowerUpGroup.Controls.OfType<RadioButton>().FirstOrDefault(x => x.Checked);
+                //Cancels power up use if that power up is out of stock.
+                ItemCounter powerUp = Bubble.CounterList.FindAll(x => x.CounterLabel.GetType().Equals(typeof(RadioButton))).FirstOrDefault(x => ((RadioButton)x.CounterLabel).Checked);
+                if (powerUp.Value == 0)
+                {
+                    PowerUpButton.Text = "Apply";
+                    ActionButton.Text = "Fire";
+                    EventText.Text = "You are out of that\npower up.";
+                    return;
+                }
 
                 switch (powerUp.Name)
                 {
-                    case "TransformUp":
+                    case "Transform":
                         EventText.Text = Effect.PowerTransform();
                         break;
-                    case "FunnelUp":                        
+                    case "Funnel":                        
                         EventText.Text = Effect.PowerFunnel();
                         break;
-                    case "SnipeUp":                        
+                    case "Snipe":                        
                         EventText.Text = Effect.PowerSnipe();
                         break;
                     default:
                         EventText.Text = "Error, no power up\nselected.";
                         break;
                 }
+                powerUp.UpdateCounter(-1);
+                Bubble.CounterList.FirstOrDefault(x => x.Name == "Score").UpdateCounter(5 * Settings.RetrieveValue("ScoreMultiplier"));
 
+                //Uses power up and refreshes grid to show changes during the action.
                 Bubble.RefreshGrid(500);
                 Bubble.CompleteAllEffects();
 
@@ -212,17 +299,26 @@ namespace Gridemonium
             }
             else
             {
-                RadioButton columnChoice = this.ColumnGroup.Controls.OfType<RadioButton>().FirstOrDefault(x => x.Checked);
+                //Cancels blast if you are out of ammo.
+                ItemCounter ammo = Bubble.CounterList.FirstOrDefault(x => x.Name == "Ammo");
+                if (ammo.Value == 0)
+                {
+                    EventText.Text = "You are out of ammo.";
+                    return;
+                }
 
+                ammo.UpdateCounter(-1);
+                RadioButton columnChoice = this.ColumnGroup.Controls.OfType<RadioButton>().FirstOrDefault(x => x.Checked);                
+
+                //Cancels blast if no column selected. Unused since first column is selected by default.
                 if (columnChoice == null)
                 {
                     EventText.Text = "No column selected.";
                     ActionButton.Text = "Error";
                     return;
-                }
-                else
-                    ActionButton.Text = "Fire";
+                }                
 
+                //Destroys bubble with action and runs through all potential effects.
                 char columnLetter = columnChoice.Name.Last();
                 int returnValue = Bubble.BubbleGrid["Bubble" + columnLetter.ToString() + "5"].DestroyBubble();  
 
@@ -234,8 +330,7 @@ namespace Gridemonium
                     case 0:
                         EventText.Text = "Block bubble can't\nbe destroyed by Fire\nbutton.";
                         break;
-                    case 1:
-
+                    case 1:                        
                         Bubble.CompleteAllEffects();
 
                         DropAllGrid();
@@ -249,7 +344,10 @@ namespace Gridemonium
                     default:
                         break;
                 }
-            }            
+            }
+
+            //At the end of each completed action, a victory or loss check is done to decide whether the game should continue or not.
+            CheckWinOrLoss();
         }
 
         //Event that updates button texts when Power Up button is clicked.
@@ -264,6 +362,64 @@ namespace Gridemonium
             {
                 PowerUpButton.Text = "Apply";
                 ActionButton.Text = "Fire";
+            }
+        }
+
+        //Method that checks the status of the game to see if the player won or lost after every action.
+        private void CheckWinOrLoss()
+        {
+            ItemCounter score = Bubble.CounterList.FirstOrDefault(x => x.Name == "Score");
+            ItemCounter ammo = Bubble.CounterList.FirstOrDefault(x => x.Name == "Ammo");
+            ItemCounter transforms = Bubble.CounterList.FirstOrDefault(x => x.Name == "Transform");
+            ItemCounter funnels = Bubble.CounterList.FirstOrDefault(x => x.Name == "Funnel");
+            ItemCounter snipes = Bubble.CounterList.FirstOrDefault(x => x.Name == "Snipe");
+
+            //Win condition check comes first. Checks if all spawners are down to 0% before continuing.
+            if (Spawner.AllSpawnersDestroyed())
+            {                
+                //Extra points earned depending on difficulty and remaining blasts.
+                score.UpdateCounter(10 * ammo.Value * Settings.RetrieveValue("ScoreMultiplier"));
+
+                //Message box construction and display. Takes the user back to the main menu after clicking "OK".
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                string message = "You have won the game with a total score of " + score.Value + ". You will now be taken back to the main menu.";
+                string caption = "Winner!";
+                DialogResult result;
+
+                result = MessageBox.Show(message, caption, buttons);
+                if (result == DialogResult.OK)
+                {
+                    Form form = Application.OpenForms["MainMenu"];
+                    if (form != null)
+                    {
+                        this.Hide();
+                        form.Show(this);
+                    }
+                }
+            }
+
+            //Loss condition check occurs after win check. Game is lost if player runs out of ammo and power ups.
+            if (ammo.Value == 0)
+            {
+                if (transforms.Value == 0 && funnels.Value == 0 && snipes.Value == 0)
+                {
+                    //Message box construction and display. Takes the user back to the main menu after clicking "OK".
+                    MessageBoxButtons buttons = MessageBoxButtons.OK;
+                    string message = "You lost the game with a total score of " + score.Value + ". You will now be taken back to the main menu.";
+                    string caption = "Loser. Try again next time.";
+                    DialogResult result;
+
+                    result = MessageBox.Show(message, caption, buttons);
+                    if (result == DialogResult.OK)
+                    {
+                        Form form = Application.OpenForms["MainMenu"];
+                        if (form != null)
+                        {
+                            this.Hide();
+                            form.Show(this);
+                        }
+                    }
+                }
             }
         }
     }

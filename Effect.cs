@@ -9,7 +9,6 @@ namespace Gridemonium
 {
     public class Effect
     {
-        private int _score;
         private static List<int> _numberList = new List<int> { 0, 1, 2, 3, 4, 5, 6 };
 
         public static Dictionary<int, Bubble.BubbleType> LetterBubbleMatch { get; } = new Dictionary<int, Bubble.BubbleType>();
@@ -50,7 +49,7 @@ namespace Gridemonium
                             return "Damaged 3 random\nspawners by 10%\neach.";
                         case 4:
                             Activate4();
-                            return "Received 3 more\nblasts.";
+                            return "Received 1 more\nblast.";
                         case 5:
                             Activate5(bubble.Number, bubble.Letter);
                             return "Destroyed bubbles\naround the blasted\nbubble.";
@@ -73,7 +72,10 @@ namespace Gridemonium
             foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.Number == row))
             {
                 if (entry.Value.Letter != col)
+                {
                     entry.Value.ImageUpdate("_", false);
+                    Bubble.CounterList.FirstOrDefault(x => x.Name == "Score").UpdateCounter(15 * Settings.RetrieveValue("ScoreMultiplier"));
+                }
             }                
         }
 
@@ -82,7 +84,10 @@ namespace Gridemonium
             foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.Letter == col))
             {
                 if (entry.Value.Number != row)
+                {
                     entry.Value.ImageUpdate("_", false);
+                    Bubble.CounterList.FirstOrDefault(x => x.Name == "Score").UpdateCounter(15 * Settings.RetrieveValue("ScoreMultiplier"));
+                }
             }                
 
             if (Spawner.AllSpawnersDestroyed())
@@ -113,6 +118,8 @@ namespace Gridemonium
                 default:
                     break;
             }
+
+            Bubble.CounterList.FirstOrDefault(x => x.Name == "Score").UpdateCounter(5 * Settings.RetrieveValue("ScoreMultiplier"));
         }
 
         private void Activate1(int row, char col)
@@ -123,6 +130,7 @@ namespace Gridemonium
                     continue;
 
                 entry.Value.ImageUpdate("_", false);
+                Bubble.CounterList.FirstOrDefault(x => x.Name == "Score").UpdateCounter(15 * Settings.RetrieveValue("ScoreMultiplier"));
             }
             foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.Letter == 'D'))
             {
@@ -130,6 +138,7 @@ namespace Gridemonium
                     continue;
 
                 entry.Value.ImageUpdate("_", false);
+                Bubble.CounterList.FirstOrDefault(x => x.Name == "Score").UpdateCounter(15 * Settings.RetrieveValue("ScoreMultiplier"));
             }
         }
 
@@ -157,6 +166,7 @@ namespace Gridemonium
 
             letter = (char)(rng + 64);
             Spawner.DamageSpawner(letter, 25);
+            Bubble.CounterList.FirstOrDefault(x => x.Name == "Score").UpdateCounter(15 * Settings.RetrieveValue("ScoreMultiplier"));
         }
 
         private void Activate3()
@@ -173,6 +183,9 @@ namespace Gridemonium
             {
                 do
                 {
+                    if (Spawner.AllSpawnersDestroyed())
+                        return;
+
                     rng = _numberList[random.Next(0, _numberList.Count)];
                     if (!Spawner.SpawnerList[rng].CheckPercentValue())
                     {
@@ -180,21 +193,19 @@ namespace Gridemonium
                         rollAgain = true;
                     }
                     else
-                    {
-                        rollAgain = false;
-                        if (Spawner.AllSpawnersDestroyed())
-                            return;
-                    }                        
+                        rollAgain = false;                           
                 } while (rollAgain);
 
                 letter = (char)(rng + 64);
                 Spawner.DamageSpawner(letter, 10);
+                Bubble.CounterList.FirstOrDefault(x => x.Name == "Score").UpdateCounter(5 * Settings.RetrieveValue("ScoreMultiplier"));
             }            
         }
 
         private void Activate4()
         {
-            Bubble.CounterList.FirstOrDefault(x => x.Name == "Ammo").UpdateCounter(3);
+            Bubble.CounterList.FirstOrDefault(x => x.Name == "Ammo").UpdateCounter(1);
+            Bubble.CounterList.FirstOrDefault(x => x.Name == "Score").UpdateCounter(5 * Settings.RetrieveValue("ScoreMultiplier"));
         }
 
         private void Activate5(int row, char col)
@@ -207,22 +218,32 @@ namespace Gridemonium
                         continue;
 
                     if (Bubble.BubbleGrid.ContainsKey("Bubble" + ((char)(col + i)).ToString() + (row + j).ToString()))
+                    {
                         Bubble.BubbleGrid.FirstOrDefault(x => x.Value.Name == "Bubble" + ((char)(col + i)).ToString() + (row + j).ToString()).Value.ImageUpdate("_", false);
+                        Bubble.CounterList.FirstOrDefault(x => x.Name == "Score").UpdateCounter(15 * Settings.RetrieveValue("ScoreMultiplier"));
+                    }
                 }
             }
         }
 
         private void Activate6()
         {
-            foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.Type == Bubble.BubbleType.Block))
+            foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.BubbleEffect.EffectType == Bubble.BubbleType.Block))
+            {
                 entry.Value.ImageUpdate("Blank", true);
+                Bubble.CounterList.FirstOrDefault(x => x.Name == "Score").UpdateCounter(10 * Settings.RetrieveValue("ScoreMultiplier"));
+            }
         }
 
         //Method for effect of Tranform power up.
         public static string PowerTransform()
         {
-            foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.Type == Bubble.BubbleType.Block))
+            foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.BubbleEffect.EffectType == Bubble.BubbleType.Block))
+            {
                 entry.Value.ImageUpdate("Random", true);
+                Bubble.CounterList.FirstOrDefault(x => x.Name == "Score").UpdateCounter(10 * Settings.RetrieveValue("ScoreMultiplier"));
+                Bubble.RefreshGrid(0);
+            }
 
             return "Transformed all block\nbubbles into random\nbubbles.";
         }
@@ -233,7 +254,10 @@ namespace Gridemonium
             foreach (char letter in new List<char> { 'C', 'D', 'E' }) 
             {
                 foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.Letter == letter))
+                {
                     entry.Value.ImageUpdate("_", false);
+                    Bubble.CounterList.FirstOrDefault(x => x.Name == "Score").UpdateCounter(5 * Settings.RetrieveValue("ScoreMultiplier"));
+                }
             }
 
             return "Destroyed all bubbles\nwithin the three\nmiddle columns.";
@@ -255,6 +279,7 @@ namespace Gridemonium
                 {
                     letter = (char)(i + 64);
                     Spawner.DamageSpawner(letter, 5);
+                    Bubble.CounterList.FirstOrDefault(x => x.Name == "Score").UpdateCounter(5 * Settings.RetrieveValue("ScoreMultiplier"));
                 }                
             }
 

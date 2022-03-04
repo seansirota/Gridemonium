@@ -9,8 +9,7 @@ namespace Gridemonium
 {
     public class Spawner
     {
-        private int _value;
-
+        public int Value;
         public Label PercentLabel;
         //List containing all spawner labels.
         public static List<Spawner> SpawnerList { get; } = new List<Spawner>();
@@ -18,9 +17,9 @@ namespace Gridemonium
         //Constructor for Spawner. No new spawner objects can be created after initialization of the game room.
         public Spawner(Label label)
         {
-            _value = 100;
+            Value = 100;
             PercentLabel = label;
-            PercentLabel.Text = _value.ToString() + '%'.ToString();
+            PercentLabel.Text = Value.ToString() + '%'.ToString();
         }        
 
         //Method that damages a spawner by a given percentage.
@@ -30,15 +29,15 @@ namespace Gridemonium
             int columnNumber = letter - 64;
             Spawner spawner = SpawnerList[columnNumber];
 
-            spawner._value -= percent;
-            if (spawner._value < 0)
-                spawner._value = 0;
-            spawner.PercentLabel.Text = spawner._value.ToString() + '%'.ToString();
+            spawner.Value -= percent;
+            if (spawner.Value < 0)
+                spawner.Value = 0;
+            spawner.PercentLabel.Text = spawner.Value.ToString() + '%'.ToString();
         }
 
         public bool CheckPercentValue()
         {
-            if (_value == 0)
+            if (Value == 0)
                 return false;
             else
                 return true;
@@ -50,7 +49,7 @@ namespace Gridemonium
 
             foreach (Spawner spawner in SpawnerList)
             {
-                totalPercent += spawner._value;
+                totalPercent += spawner.Value;
             }
 
             if (totalPercent != 0)

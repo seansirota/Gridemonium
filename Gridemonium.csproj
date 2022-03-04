@@ -88,6 +88,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="Spawner.cs" />
     <EmbeddedResource Include="GameRoom.resx">
       <DependentUpon>GameRoom.cs</DependentUpon>

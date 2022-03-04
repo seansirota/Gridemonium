@@ -23,7 +23,7 @@ namespace Gridemonium
             if (form != null)
             {
                 this.Hide();
-                form.Show(this);
+                form.Show();
             }            
         }
     }
