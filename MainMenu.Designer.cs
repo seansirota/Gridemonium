@@ -34,13 +34,14 @@
             this.HardMode = new System.Windows.Forms.Button();
             this.Guide = new System.Windows.Forms.Button();
             this.ScoresButton = new System.Windows.Forms.Button();
+            this.AuthorLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // TitleLabel
             // 
             this.TitleLabel.AutoSize = true;
             this.TitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
-            this.TitleLabel.Location = new System.Drawing.Point(69, 55);
+            this.TitleLabel.Location = new System.Drawing.Point(69, 34);
             this.TitleLabel.Name = "TitleLabel";
             this.TitleLabel.Size = new System.Drawing.Size(210, 37);
             this.TitleLabel.TabIndex = 0;
@@ -96,12 +97,22 @@
             this.ScoresButton.UseVisualStyleBackColor = true;
             this.ScoresButton.Click += new System.EventHandler(this.ScoresButton_Click);
             // 
+            // AuthorLabel
+            // 
+            this.AuthorLabel.AutoSize = true;
+            this.AuthorLabel.Location = new System.Drawing.Point(94, 80);
+            this.AuthorLabel.Name = "AuthorLabel";
+            this.AuthorLabel.Size = new System.Drawing.Size(160, 13);
+            this.AuthorLabel.TabIndex = 6;
+            this.AuthorLabel.Text = "By Sean Sirota AKA u/thedogpill";
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(348, 303);
+            this.Controls.Add(this.AuthorLabel);
             this.Controls.Add(this.ScoresButton);
             this.Controls.Add(this.Guide);
             this.Controls.Add(this.HardMode);
@@ -123,5 +134,6 @@
         private System.Windows.Forms.Button HardMode;
         private System.Windows.Forms.Button Guide;
         private System.Windows.Forms.Button ScoresButton;
+        private System.Windows.Forms.Label AuthorLabel;
     }
 }

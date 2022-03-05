@@ -77,7 +77,8 @@ namespace Gridemonium
                 game.RestartForm(mode);
                 game.SetUpCounters();
                 game.AssignBubbles();
-                game.InitiateGrid();                                                           
+                game.InitiateGrid();
+                game.SetUpLetterBubbles();
             }            
         }
 

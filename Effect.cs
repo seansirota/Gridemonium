@@ -9,7 +9,7 @@ namespace Gridemonium
 {
     public class Effect
     {
-        private static List<int> _numberList = new List<int> { 0, 1, 2, 3, 4, 5, 6 };
+        public static List<int> NumberList = new List<int> { 0, 1, 2, 3, 4, 5, 6 };
 
         public static Dictionary<int, Bubble.BubbleType> LetterBubbleMatch { get; } = new Dictionary<int, Bubble.BubbleType>();
         public Bubble.BubbleType EffectType { get; set; }
@@ -55,7 +55,7 @@ namespace Gridemonium
                             return "Destroyed bubbles\naround the blasted\nbubble.";
                         case 6:
                             Activate6();
-                            return "Transformed all block\nbubbles into blank\nbubbles.";
+                            return "Transformed all block\nbubbles into letter\nbubbles.";
                         default:
                             return "An error occured.\nNo letter bubble\nchosen.";
                     }
@@ -94,7 +94,7 @@ namespace Gridemonium
                 return;
 
             if (!Spawner.SpawnerList[col - 65].CheckPercentValue())
-                _numberList.Remove(col - 65);
+                NumberList.Remove(col - 65);
             else
                 Spawner.DamageSpawner((char)(col - 1), 10);
         }
@@ -154,10 +154,10 @@ namespace Gridemonium
 
             do
             {
-                rng = _numberList[random.Next(0, _numberList.Count)];
+                rng = NumberList[random.Next(0, NumberList.Count)];
                 if (!Spawner.SpawnerList[rng].CheckPercentValue())
                 {
-                    _numberList.Remove(rng);
+                    NumberList.Remove(rng);
                     rollAgain = true;
                 }             
                 else
@@ -186,10 +186,10 @@ namespace Gridemonium
                     if (Spawner.AllSpawnersDestroyed())
                         return;
 
-                    rng = _numberList[random.Next(0, _numberList.Count)];
+                    rng = NumberList[random.Next(0, NumberList.Count)];
                     if (!Spawner.SpawnerList[rng].CheckPercentValue())
                     {
-                        _numberList.Remove(rng);
+                        NumberList.Remove(rng);
                         rollAgain = true;
                     }
                     else
@@ -230,8 +230,9 @@ namespace Gridemonium
         {
             foreach (KeyValuePair<string, Bubble> entry in Bubble.BubbleGrid.Where(x => x.Value.BubbleEffect.EffectType == Bubble.BubbleType.Block))
             {
-                entry.Value.ImageUpdate("Blank", true);
+                entry.Value.ImageUpdate("Letter", true);
                 Bubble.CounterList.FirstOrDefault(x => x.Name == "Score").UpdateCounter(10 * Settings.RetrieveValue("ScoreMultiplier"));
+                Bubble.RefreshGrid(0);
             }
         }
 
@@ -274,7 +275,7 @@ namespace Gridemonium
             for (int i = 0; i < 7; i++)
             {
                 if (!Spawner.SpawnerList[i].CheckPercentValue())
-                    _numberList.Remove(i);
+                    NumberList.Remove(i);
                 else
                 {
                     letter = (char)(i + 64);

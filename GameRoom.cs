@@ -51,7 +51,12 @@ namespace Gridemonium
             ActionButton.Text = "Fire";
 
             foreach (Spawner spawner in Spawner.SpawnerList)
+            {
                 spawner.Value = 100;
+                spawner.PercentLabel.Text = spawner.Value.ToString() + "%";
+            }
+
+            Effect.NumberList = new List<int> { 0, 1, 2, 3, 4, 5, 6 };
 
             SetSettings(mode);
         }
@@ -93,6 +98,8 @@ namespace Gridemonium
         //Method that assigns randomly a numbered effect to each letter bubble type.
         public void SetUpLetterBubbles()
         {
+            Effect.LetterBubbleMatch.Clear();
+
             int rng;
             Bubble.BubbleType value;
             Random random = new Random();            
