@@ -33,6 +33,7 @@
             this.NormalMode = new System.Windows.Forms.Button();
             this.HardMode = new System.Windows.Forms.Button();
             this.Guide = new System.Windows.Forms.Button();
+            this.ScoresButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // TitleLabel
@@ -85,12 +86,23 @@
             this.Guide.UseVisualStyleBackColor = true;
             this.Guide.Click += new System.EventHandler(this.Guide_Click);
             // 
+            // ScoresButton
+            // 
+            this.ScoresButton.Location = new System.Drawing.Point(116, 253);
+            this.ScoresButton.Name = "ScoresButton";
+            this.ScoresButton.Size = new System.Drawing.Size(116, 28);
+            this.ScoresButton.TabIndex = 5;
+            this.ScoresButton.Text = "High Scores";
+            this.ScoresButton.UseVisualStyleBackColor = true;
+            this.ScoresButton.Click += new System.EventHandler(this.ScoresButton_Click);
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(348, 275);
+            this.ClientSize = new System.Drawing.Size(348, 303);
+            this.Controls.Add(this.ScoresButton);
             this.Controls.Add(this.Guide);
             this.Controls.Add(this.HardMode);
             this.Controls.Add(this.NormalMode);
@@ -110,5 +122,6 @@
         private System.Windows.Forms.Button NormalMode;
         private System.Windows.Forms.Button HardMode;
         private System.Windows.Forms.Button Guide;
+        private System.Windows.Forms.Button ScoresButton;
     }
 }

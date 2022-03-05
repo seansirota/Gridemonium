@@ -37,9 +37,19 @@ namespace Gridemonium
         //Method that takes you to guide form.
         private void Guide_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Guide guide = new Guide();
-            guide.Show();            
+            Form form = Application.OpenForms["Guide"];
+
+            if (form == null)
+            {
+                this.Hide();
+                Guide guide = new Guide();
+                guide.Show();
+            }
+            else
+            {
+                this.Hide();
+                form.Show();
+            }
         } 
         
         //Method for starting up game room form.
@@ -47,7 +57,7 @@ namespace Gridemonium
         {
             Form form = Application.OpenForms["GameRoom"];
 
-            if (Application.OpenForms["GameRoom"] == null)
+            if (form == null)
             {
                 this.Hide();
                 GameRoom game = new GameRoom(mode);
@@ -69,6 +79,26 @@ namespace Gridemonium
                 game.AssignBubbles();
                 game.InitiateGrid();                                                           
             }            
+        }
+
+        private void ScoresButton_Click(object sender, EventArgs e)
+        {
+            Form form = Application.OpenForms["HighScores"];
+
+            if (form == null)
+            {
+                this.Hide();
+                HighScores scoresForm = new HighScores();
+                StreamOps.DisplayScores(scoresForm);
+                scoresForm.Show();
+            }
+            else
+            {
+                this.Hide();
+                HighScores scoresForm = (HighScores)form;
+                StreamOps.DisplayScores(scoresForm);
+                form.Show();
+            }
         }
     }
 }

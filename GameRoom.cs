@@ -22,26 +22,8 @@ namespace Gridemonium
         public GameRoom(string mode)
         {
             InitializeComponent();            
+            SetSettings(mode);
 
-            //Switch statement that chooses the correct difficulty settings based on the chosen mode. See below for parameters of InitiateSettings method.
-            //BubbleArrowChance, BubbleBlockChance, BubblePowerChance, BubbleBlankChance,
-            //EventLetterChance, EventBlockChance, EventRandomChance, EventBlankChance,
-            //StartingAmmo, ScoreMultiplier
-            switch (mode)
-            {
-                case "Easy":
-                    Settings.InitiateSettings(10, 12, 10, 50, 15, 15, 15, 15, 50, 5);
-                    break;
-                case "Normal":
-                    Settings.InitiateSettings(8, 18, 8, 54, 12, 21, 15, 12, 40, 10);
-                    break;
-                case "Hard":
-                    Settings.InitiateSettings(6, 28, 6, 54, 9, 30, 12, 9, 30, 15);
-                    break;
-                default:
-                    break;
-            }
-          
             foreach (PictureBox box in MainBox.Controls)
                 _boxList.Add(box);
 
@@ -71,16 +53,26 @@ namespace Gridemonium
             foreach (Spawner spawner in Spawner.SpawnerList)
                 spawner.Value = 100;
 
+            SetSettings(mode);
+        }
+
+        //Method to set the parameters for bubble spawning, score multipliers, and events.
+        private void SetSettings(string mode)
+        {
+            //Switch statement that chooses the correct difficulty settings based on the chosen mode. See below for parameters of InitiateSettings method.
+            //BubbleArrowChance, BubbleBlockChance, BubblePowerChance, BubbleBlankChance,
+            //EventLetterChance, EventBlockChance, EventRandomChance, EventBlankChance,
+            //StartingAmmo, ScoreMultiplier
             switch (mode)
             {
                 case "Easy":
-                    Settings.InitiateSettings(10, 12, 10, 50, 15, 15, 15, 15, 50, 5);
+                    Settings.InitiateSettings(14, 6, 14, 42, 15, 15, 15, 15, 60, 5);
                     break;
                 case "Normal":
-                    Settings.InitiateSettings(8, 18, 8, 54, 12, 21, 15, 12, 40, 10);
+                    Settings.InitiateSettings(10, 12, 10, 50, 15, 15, 15, 15, 45, 10);
                     break;
                 case "Hard":
-                    Settings.InitiateSettings(6, 28, 6, 54, 9, 30, 12, 9, 30, 15);
+                    Settings.InitiateSettings(8, 18, 8, 54, 12, 21, 15, 12, 35, 15);
                     break;
                 default:
                     break;
@@ -394,6 +386,7 @@ namespace Gridemonium
                     {
                         this.Hide();
                         form.Show(this);
+                        StreamOps.AddScore(score.Value);
                     }
                 }
             }
@@ -417,10 +410,11 @@ namespace Gridemonium
                         {
                             this.Hide();
                             form.Show(this);
+                            StreamOps.AddScore(score.Value);
                         }
                     }
                 }
-            }
+            }            
         }
     }
 }

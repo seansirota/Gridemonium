@@ -14,6 +14,7 @@ namespace Gridemonium
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            StreamOps.CreateFile();
             MainMenu mainMenu = new MainMenu();            
             Application.Run(mainMenu);
         }
