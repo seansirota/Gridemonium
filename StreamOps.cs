@@ -23,7 +23,7 @@ namespace Gridemonium
         //and populates it with default values.
         public static void CreateFile()
         {
-            _highscores = new FileInfo(@"C:\Users\Sean\Documents\Highscores.txt");
+            _highscores = new FileInfo(@"C:\Highscores.txt");
             if (!_highscores.Exists)
             {
                 using(_stream = _highscores.Open(FileMode.Create, FileAccess.Write, FileShare.Read))
